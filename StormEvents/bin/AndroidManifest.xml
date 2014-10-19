@@ -3,7 +3,7 @@
     package="com.example.androidhive"
     android:versionCode="1"
     android:versionName="1.0" >
-theme
+theme
     <uses-sdk android:minSdkVersion="8" />
 
     <application
@@ -22,7 +22,7 @@ theme
 
         <!-- All Product Activity -->
         <activity
-            android:name="com.example.stormEvents.AllProductsActivity"
+            android:name="activity.UsuarioLISTActivity"
             android:label="All Products" >
         </activity>
 
@@ -44,6 +44,10 @@ theme
         <activity
             android:name="com.example.androidhive.ResultadoLoginActivity"
             android:label="@string/title_activity_resultado_login" >
+        </activity>
+        <activity
+            android:name="com.example.androidhive.TesteActivity"
+            android:label="@string/title_activity_teste" >
         </activity>
     </application>
 

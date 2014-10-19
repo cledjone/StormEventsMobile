@@ -21,7 +21,7 @@
              android:textSize="17dip" />
 
          <EditText
-             android:id="@+id/inputName"
+             android:id="@+id/editLogin"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
              android:layout_margin="5dip"
@@ -42,7 +42,7 @@
              android:textSize="17dip" />
 
          <EditText
-             android:id="@+id/EditText01"
+             android:id="@+id/editSenha"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
              android:layout_margin="5dip"
@@ -56,7 +56,7 @@
              android:paddingLeft="10dip"
              android:paddingRight="10dip"
              android:paddingTop="10dip"
-             android:text="Logar"
+             android:text="Logar-se"
              android:textSize="17dip" />
 
          <Button
