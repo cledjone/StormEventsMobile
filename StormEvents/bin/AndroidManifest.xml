@@ -3,16 +3,15 @@
     package="com.example.androidhive"
     android:versionCode="1"
     android:versionName="1.0" >
-theme
+theme
     <uses-sdk android:minSdkVersion="8" />
 
     <application
         android:configChanges="keyboardHidden|orientation"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
-
         <activity
-            android:name="com.example.stormEvents.MainScreenActivity"
+            android:name="activity.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,9 +37,17 @@ theme
             android:name="com.example.stormEvents.EditProductActivity"
             android:label="Edit Product" >
         </activity>
+        <activity
+            android:name="com.example.androidhive.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.example.androidhive.ResultadoLoginActivity"
+            android:label="@string/title_activity_resultado_login" >
+        </activity>
     </application>
 
-    <!--  Internet Permissions -->
+    <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
