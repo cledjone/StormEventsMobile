@@ -25,8 +25,8 @@ public class LoginActivity extends Activity {
 	EditText textSenha;	
 
 	//PARÂMETROS DA CONSULTA
-	String pid;
-	String nomeProd;	
+	String usuLogin;
+	String usuSenha;	
 	String tipoConsulta;
 
 	// Progress Dialog
@@ -55,8 +55,8 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View view) {				
 			    // ESCREVE PARAMETROS DA CONSULTA
-				pid = textLogin.getText().toString();
-				nomeProd = textSenha.getText().toString();
+				usuLogin = textLogin.getText().toString();
+				usuSenha = textSenha.getText().toString();
 				tipoConsulta = "consulta_login";
 				// VALIDA E EFETUA O LOGIN
 				new VerificaLogin().execute();			
@@ -84,8 +84,8 @@ public class LoginActivity extends Activity {
 					try {
 						// INSERINDO PARAMETROS
 						List<NameValuePair> params = new ArrayList<NameValuePair>();
-						params.add(new BasicNameValuePair("pid", pid));
-						params.add(new BasicNameValuePair("name", nomeProd));
+						params.add(new BasicNameValuePair("login", usuLogin));
+						params.add(new BasicNameValuePair("senha", usuSenha));
 						params.add(new BasicNameValuePair("consulta", tipoConsulta));
 
 						// PEGANDO AS INFORMAÇÕES DO WEB SERVICE
@@ -93,14 +93,14 @@ public class LoginActivity extends Activity {
 								url_consulta_login, "GET", params);
 
 						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU						
-								Toast.makeText(LoginActivity.this,json.toString(),Toast.LENGTH_LONG).show();
+							//Toast.makeText(LoginActivity.this,json.toString(),Toast.LENGTH_LONG).show();
 						
 						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
 						success = json.getInt(TAG_SUCCESS);
 						if (success == 1) {							
-							//Toast.makeText(LoginActivity.this,"Usuario Logado Com Sucesso!",Toast.LENGTH_LONG).show();
+							Toast.makeText(LoginActivity.this,"Usuario Logado Com Sucesso!",Toast.LENGTH_LONG).show();
 						}else{
-							//Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();
+							Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
