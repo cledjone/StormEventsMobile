@@ -1,7 +1,6 @@
 package activity;
 
 import com.example.androidhive.R;
-import modelo.basicas.JSONParser;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,6 +23,7 @@ public class LoginActivity extends Activity {
 	Button btnLogin;
 	EditText textLogin;
 	EditText textSenha;	
+	
 
 	//PARÂMETROS DA CONSULTA
 	String usuLogin;
