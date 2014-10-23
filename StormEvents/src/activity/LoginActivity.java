@@ -14,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.EditText;
 
@@ -99,6 +100,8 @@ public class LoginActivity extends Activity {
 						success = json.getInt(TAG_SUCCESS);
 						if (success == 1) {							
 							Toast.makeText(LoginActivity.this,"Usuario Logado Com Sucesso!",Toast.LENGTH_LONG).show();
+							Intent i = new Intent(getApplicationContext(), UsuarioCIndexActivity.class);
+							startActivity(i);
 						}else{
 							Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();
 						}

@@ -22,7 +22,7 @@ theme
 
         <!-- All Product Activity -->
         <activity
-            android:name="activity.UsuarioLISTActivity"
+            android:name="activity.UsuarioCIndexActivity"
             android:label="All Products" >
         </activity>
 
@@ -34,7 +34,7 @@ theme
 
         <!-- Edit Product Activity -->
         <activity
-            android:name="com.example.stormEvents.EditProductActivity"
+            android:name="activity.VisualizaEventoActivity"
             android:label="Edit Product" >
         </activity>
         <activity
