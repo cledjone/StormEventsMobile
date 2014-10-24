@@ -3,7 +3,7 @@
     package="com.example.androidhive"
     android:versionCode="1"
     android:versionName="1.0" >
-theme
+theme
     <uses-sdk android:minSdkVersion="8" />
 
     <application
@@ -11,7 +11,7 @@ theme
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name="activity.LoginActivity"
+            android:name="com.example.stormEvents.MainScreenActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@ theme
 
         <!-- All Product Activity -->
         <activity
-            android:name="activity.UsuarioCIndexActivity"
+            android:name="com.example.stormEvents.AllProductsActivity"
             android:label="All Products" >
         </activity>
 
@@ -34,20 +34,12 @@ theme
 
         <!-- Edit Product Activity -->
         <activity
-            android:name="activity.VisualizaEventoActivity"
+            android:name="com.example.stormEvents.EditProductActivity"
             android:label="Edit Product" >
         </activity>
         <activity
-            android:name="com.example.androidhive.LoginActivity"
-            android:label="@string/title_activity_login" >
-        </activity>
-        <activity
-            android:name="com.example.androidhive.ResultadoLoginActivity"
-            android:label="@string/title_activity_resultado_login" >
-        </activity>
-        <activity
-            android:name="com.example.androidhive.TesteActivity"
-            android:label="@string/title_activity_teste" >
+            android:name="activity.UsuarioCIndexActivity"
+            android:label="@string/title_activity_usuario_cindex" >
         </activity>
     </application>
 
