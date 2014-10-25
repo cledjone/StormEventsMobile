@@ -99,8 +99,8 @@ public class LoginActivity extends Activity {
 						success = json.getInt(TAG_SUCCESS);
 						if (success == 1) {							
 							Toast.makeText(LoginActivity.this,"Usuario Logado Com Sucesso!",Toast.LENGTH_LONG).show();
-						//	Intent i = new Intent(getApplicationContext(), UsuarioCIndexActivity.class);
-							//startActivity(i);
+							Intent i = new Intent(getApplicationContext(), ListaEventosActivity.class);
+							startActivity(i);
 						}else{
 							Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();
 						}

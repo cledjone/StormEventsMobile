@@ -56,7 +56,7 @@
              android:paddingLeft="10dip"
              android:paddingRight="10dip"
              android:paddingTop="10dip"
-             android:text="Logar-se"
+             android:text="Logar"
              android:textSize="17dip" />
 
          <Button
