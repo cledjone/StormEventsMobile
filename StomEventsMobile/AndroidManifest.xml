@@ -4,7 +4,9 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-     <uses-sdk android:minSdkVersion="8" />
+     <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -20,9 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.stomeventsmobile.ListaEventosActivity"
+            android:label="@string/title_activity_lista_eventos" >
+        </activity>
     </application>
-    
-     <!-- Internet Permissions -->
+
+    <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
