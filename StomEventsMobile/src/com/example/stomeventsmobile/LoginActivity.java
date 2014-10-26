@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
 	JSONParser jsonParser = new JSONParser();
 
 	// single product url
-	private static final String url_consulta_login = "http://192.168.56.102/android/fachada.php";
+	private static final String url_consulta_login = "http://192.168.56.101/android/fachada.php";
 	
 	// JSON Node names
 	private static final String TAG_SUCCESS = "success";
@@ -44,7 +44,7 @@ public class LoginActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);		
+		setContentView(R.layout.login_activity);		
 	 
 		//ATRIBUI OS INPUTS A VARIAVEIS
 		btnLogin = (Button) findViewById(R.id.btn_logar);
