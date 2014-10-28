@@ -3,22 +3,27 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+     >
 	
      <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_weight="1"
-         android:orientation="vertical" >
-
+         android:orientation="vertical" 
+         android:background="@drawable/back6">
+    
          <TextView
-             android:layout_width="fill_parent"
+             android:layout_width="wrap_content"
              android:layout_height="wrap_content"
+             android:layout_gravity="center"
              android:paddingLeft="10dip"
              android:paddingRight="10dip"
              android:paddingTop="10dip"
-             android:text="Login"
-             android:textSize="17dip" />
+             android:text="Login"  
+   			  android:textColor="#8B8989"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
          <EditText
              android:id="@+id/editLogin"
@@ -27,20 +32,20 @@
              android:layout_margin="5dip"
              android:layout_marginBottom="15dip"
              android:ems="10"
-             android:singleLine="true" >
-
+            android:hint="LOGIN"
+            android:singleLine="true" />
              <requestFocus />
-         </EditText>
-
          <TextView
-             android:layout_width="fill_parent"
+             android:layout_width="wrap_content"
              android:layout_height="wrap_content"
+             android:layout_gravity="center"
              android:paddingLeft="10dip"
              android:paddingRight="10dip"
              android:paddingTop="10dip"
-             android:text="Senha"
-             android:textSize="17dip" />
-
+            android:text="Senha"
+            android:textColor="#8B8989"
+            android:textSize="25sp"
+            android:textStyle="bold" />
          <EditText
              android:id="@+id/editSenha"
              android:layout_width="fill_parent"
@@ -48,35 +53,32 @@
              android:layout_margin="5dip"
              android:layout_marginBottom="15dip"
              android:ems="10"
-             android:singleLine="true" />
-
-         <TextView
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
-             android:paddingLeft="10dip"
-             android:paddingRight="10dip"
-             android:paddingTop="10dip"
-             android:text="Logar"
-             android:textSize="17dip" />
+            android:hint="SENHA"
+            android:password="true"
+            android:singleLine="true" />
 
          <Button
              android:id="@+id/btn_logar"
-             android:layout_width="match_parent"
+             android:layout_width="236dp"
              android:layout_height="wrap_content"
-             android:text="Confirmar" />
+             android:layout_gravity="center"
+             android:text="Confirmar" 
+             android:textSize="25sp" 
+     		 android:textStyle="bold"/>
+
      </LinearLayout>
 
 	 <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:gravity="center">
+	     android:layout_width="match_parent"
+	     android:layout_height="72dp"
+	     android:gravity="center" >
 
-			    <ImageView
-			        android:id="@+id/imageView1"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_gravity="center"
-			        android:src="@drawable/logotipo" />
+	     <ImageView
+	         android:id="@+id/imageView1"
+	         android:layout_width="match_parent"
+	         android:layout_height="109dp"
+	         android:src="@drawable/logo" />
+
 	</LinearLayout>
 
 </LinearLayout>

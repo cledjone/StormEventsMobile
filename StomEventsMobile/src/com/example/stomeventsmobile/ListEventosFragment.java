@@ -28,7 +28,7 @@ public class ListEventosFragment extends ListFragment {
 	JSONParser jParser = new JSONParser();	
 
 	// url to get all products list
-	private static String url_todos_eventos = "http://192.168.56.101/android/fachada.php";	
+	private static String url_todos_eventos = "http://192.168.56.102/android/fachada.php";	
 
 	List<Evento> eventos;
 	String tipoConsulta;

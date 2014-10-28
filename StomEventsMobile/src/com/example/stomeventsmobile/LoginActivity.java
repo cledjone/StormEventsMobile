@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
 	JSONParser jsonParser = new JSONParser();
 
 	// single product url
-	private static final String url_consulta_login = "http://192.168.56.101/android/fachada.php";
+	private static final String url_consulta_login = "http://192.168.56.102/android/fachada.php";
 	
 	// JSON Node names
 	private static final String TAG_SUCCESS = "success";
