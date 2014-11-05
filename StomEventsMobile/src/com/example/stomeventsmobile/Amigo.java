@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Amigo implements Serializable {
 	/**
 	 * 
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	long id;
