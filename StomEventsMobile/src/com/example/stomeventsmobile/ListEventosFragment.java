@@ -78,7 +78,7 @@ public class ListEventosFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View layout = inflater.inflate(R.layout.fragment_lista_eventos,
+		View layout = inflater.inflate(R.layout.fragment_lista,
 				container, false);
 
 		progress = (ProgressBar) layout.findViewById(R.id.progressBar1);
@@ -134,6 +134,7 @@ public class ListEventosFragment extends ListFragment {
 			
 			// CRIA UM LOG NO LOGCAT COM O RESULTADO DO JSON
 			Log.d("Todos Eventos: ", json.toString());
+			Log.d("params1: ", params.toString());
 			
 			
 			try{
@@ -165,7 +166,7 @@ public class ListEventosFragment extends ListFragment {
 				refreshList();
 				txtMensagem.setVisibility(View.GONE);
 			} else {
-				txtMensagem.setText("Deu erro!");
+				txtMensagem.setText("Deu erro eventos!");
 			}
 			progress.setVisibility(View.GONE);
 		}

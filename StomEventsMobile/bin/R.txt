@@ -335,11 +335,12 @@ int layout abc_search_dropdown_item_icons_2line 0x7f030015
 int layout abc_search_view 0x7f030016
 int layout abc_simple_decor 0x7f030017
 int layout evento_activity 0x7f030018
-int layout fragment_lista_eventos 0x7f030019
-int layout linha_evento 0x7f03001a
-int layout lista_eventos_activity 0x7f03001b
-int layout login_activity 0x7f03001c
-int layout support_simple_spinner_dropdown_item 0x7f03001d
+int layout fragment_lista 0x7f030019
+int layout linha_amigo 0x7f03001a
+int layout linha_evento 0x7f03001b
+int layout lista_eventos_activity 0x7f03001c
+int layout login_activity 0x7f03001d
+int layout support_simple_spinner_dropdown_item 0x7f03001e
 int menu evento 0x7f0c0000
 int menu lista_eventos 0x7f0c0001
 int menu login 0x7f0c0002

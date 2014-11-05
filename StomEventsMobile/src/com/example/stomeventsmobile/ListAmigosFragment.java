@@ -22,18 +22,17 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class ListMeusEventosFragment extends ListFragment {
+public class ListAmigosFragment extends ListFragment {
 	
 	// Creating JSON Parser object
 	JSONParser jParser = new JSONParser();	
 
 	// url to get all products list
-	private static String url_todos_eventos = "http://192.168.56.102/android/fachada.php";	
+	private static String url_todos_amigos = "http://192.168.56.102/android/fachada.php";	
 
-	List<Evento> eventos;
+	List<Amigo> amigos;
 	String tipoConsulta;
-	String meusEventos;
-	ReadMeusEventosAsyncTask task;
+	ReadAmigosAsyncTask task;
 	ProgressBar progress;
 	TextView txtMensagem;
 	
@@ -42,10 +41,9 @@ public class ListMeusEventosFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		tipoConsulta = "listar_eventos";
-		meusEventos = "meus_eventos";
+		tipoConsulta = "listar_usuarios";
 		setRetainInstance(true);	
-		if (eventos != null){
+		if (amigos != null){
 			txtMensagem.setVisibility(View.GONE);
 			progress.setVisibility(View.GONE);
 			refreshList();
@@ -67,13 +65,13 @@ public class ListMeusEventosFragment extends ListFragment {
 
 		if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
 
-			task = new ReadMeusEventosAsyncTask();
+			task = new ReadAmigosAsyncTask();
 			task.execute();
 
 		} else {
 			progress.setVisibility(View.GONE);
 			txtMensagem.setVisibility(View.VISIBLE);
-			txtMensagem.setText("Sem conex‹o com a Internet");
+			txtMensagem.setText("Sem conexao com a Internet");
 		}
 	}
 
@@ -92,21 +90,21 @@ public class ListMeusEventosFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		//eventosRepositorio db = new eventosRepositorio(getActivity());
-		/*int idLivro = db.verificaFavorito(eventos.get(position));
+		//amigosRepositorio db = new amigosRepositorio(getActivity());
+		/*int idLivro = db.verificaFavorito(amigos.get(position));
 		 if (idLivro>-1){			 
-			 eventos.get(position).favorito=true;
+			 amigos.get(position).favorito=true;
 		 }else {
-			 eventos.get(position).favorito=false;
+			 amigos.get(position).favorito=false;
 		 }	
-		 eventos.get(position).id = idLivro;
-		if (getActivity() instanceof ClicouNoEvento){
-			((ClicouNoEvento)getActivity()).livroFoiClicado(eventos.get(position));
+		 amigos.get(position).id = idLivro;
+		if (getActivity() instanceof ClicouNoAmigo){
+			((ClicouNoAmigo)getActivity()).livroFoiClicado(amigos.get(position));
 		}*/
 	}
 
 	private void refreshList() {			
-		EventosAdapter adapter = new EventosAdapter(getActivity(), eventos);
+		AmigosAdapter adapter = new AmigosAdapter(getActivity(), amigos);
 		setListAdapter(adapter);
 	}
 	
@@ -116,7 +114,7 @@ public class ListMeusEventosFragment extends ListFragment {
 		txtMensagem.setText("Carregando...");
 	}
 	
-	class ReadMeusEventosAsyncTask extends AsyncTask<Void, Void, List<Evento>> {
+	class ReadAmigosAsyncTask extends AsyncTask<Void, Void, List<Amigo>> {
 
 		@Override
 		protected void onPreExecute() {
@@ -125,37 +123,36 @@ public class ListMeusEventosFragment extends ListFragment {
 		}
 
 		@Override
-		protected List<Evento> doInBackground(Void... parames) {
+		protected List<Amigo> doInBackground(Void... parames) {
 			
-			List<Evento> eventos = new ArrayList<Evento>();
+			List<Amigo> amigos = new ArrayList<Amigo>();
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("consulta", tipoConsulta));
-			params.add(new BasicNameValuePair("argumento", meusEventos));
 			// getting JSON string from URL
-			JSONObject json = jParser.makeHttpRequest(url_todos_eventos, "GET", params);
+			JSONObject json = jParser.makeHttpRequest(url_todos_amigos, "GET", params);
 			
 			// CRIA UM LOG NO LOGCAT COM O RESULTADO DO JSON
-			Log.d("Meus Eventos: ", json.toString());
-			Log.d("Parametros2: ", params.toString());
+			Log.d("Todos Amigos: ", json.toString());
+			Log.d("paramentros3: ", params.toString());
 			
 			
 			try{
-				JSONArray jsonEntries = json.getJSONArray("eventos");				
+				JSONArray jsonEntries = json.getJSONArray("usuarios");				
 				
 				for (int i = 0; i < jsonEntries.length(); i++) {	
 				
 				JSONObject jsonEntry = jsonEntries.getJSONObject(i);			
 						
-				Evento evento = new Evento(
-					jsonEntry.getString("ID_EVE"),
-					jsonEntry.getString("Data_Evento"),
-					jsonEntry.getString("FOTO"),
-					jsonEntry.getString("END_RUA"),
-					jsonEntry.getString("END_CIDADE"));			
-					eventos.add(evento);
+				Amigo amigo = new Amigo(
+					jsonEntry.getString("ID_USU"),
+					jsonEntry.getString("EMAIL_USU"),
+					jsonEntry.getString("FOTO_USU"),
+					jsonEntry.getString("NOME_USU"),
+					jsonEntry.getString("TEL_USU"));			
+					amigos.add(amigo);
 				}	
-				return eventos;								
+				return amigos;								
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -163,14 +160,14 @@ public class ListMeusEventosFragment extends ListFragment {
 		}
 
 		@Override
-		protected void onPostExecute(List<Evento> result) {
+		protected void onPostExecute(List<Amigo> result) {
 			super.onPostExecute(result);
 			if (result != null) {
-				eventos = result;
+				amigos = result;
 				refreshList();
 				txtMensagem.setVisibility(View.GONE);
 			} else {
-				txtMensagem.setText("Deu erro meus eventos!");
+				txtMensagem.setText("Deu erro amigos!");
 			}
 			progress.setVisibility(View.GONE);
 		}

@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
-public class EventosAdapter extends ArrayAdapter<Evento> {
+public class AmigosAdapter extends ArrayAdapter<Amigo> {
 
-	public EventosAdapter(Context context, List<Evento> objects) {
+	public AmigosAdapter(Context context, List<Amigo> objects) {
 		super(context, 0, 0, objects);
 		
 	}	
@@ -22,11 +22,11 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
 
 		ViewHolder holder;
 
-		Evento evento = getItem(position);
+		Amigo amigo = getItem(position);
 
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(
-					R.layout.linha_evento, null);		
+					R.layout.linha_amigo, null);		
 
 			holder = new ViewHolder();
 			holder.titulo = (TextView) convertView
@@ -35,29 +35,29 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
 					.findViewById(R.id.txtAutor);
 			holder.editora = (TextView) convertView
 					.findViewById(R.id.txtEditora);			
-			holder.capaLivro = (ImageView) convertView
-					.findViewById(R.id.imageView1);			
+			//holder.capaLivro = (ImageView) convertView
+				//	.findViewById(R.id.imageView1);			
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.titulo.setText(evento.titulo);
-		holder.editora.setText(evento.editora);
-		holder.autor.setText(evento.autor);	
+		holder.titulo.setText(amigo.titulo);
+		holder.editora.setText(amigo.editora);
+		holder.autor.setText(amigo.autor);	
 
 		
-		Picasso.with(getContext())
-		.load("http://192.168.56.102:8080/StormEvents/fotosEventos/"+evento.capa)
+	/*	Picasso.with(getContext())
+		.load("http://192.168.56.102:8080/StormEvents/fotosUsuarios/"+amigo.capa)
 		.noFade()
-		.into(holder.capaLivro);
+		.into(holder.capaLivro); */
 
 		return convertView;
 	}
 
 	static class ViewHolder {
-		ImageView capaLivro;
+		//ImageView capaLivro;
 		TextView titulo;
 		TextView autor;
 		TextView editora;		

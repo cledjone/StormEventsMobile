@@ -1,7 +1,6 @@
 package com.example.stomeventsmobile;
 
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,8 +16,9 @@ import android.support.v7.app.ActionBarActivity;
 
 public class ListaEventosActivity extends ActionBarActivity implements TabListener, ClicouNoEvento{
 	
-	ListMeusEventosFragment fragment1;
-	ListEventosFragment fragment2;
+	ListEventosFragment fragment1;
+	ListMeusEventosFragment fragment2;
+	ListAmigosFragment fragment3;
 	ViewPager pager;
 
 	@Override
@@ -26,8 +26,9 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_eventos_activity);
 		
-		fragment1 = new ListMeusEventosFragment();
-		fragment2 = new ListEventosFragment();
+		fragment1 = new ListEventosFragment();
+		fragment2 = new ListMeusEventosFragment();
+		fragment3 = new ListAmigosFragment();
 				
 		final ActionBar actionBar = getSupportActionBar();
 		
@@ -44,15 +45,20 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
 		Tab aba1 = actionBar.newTab();
-		aba1.setText("Meus Eventos");
+		aba1.setText("Eventos");
 		aba1.setTabListener(this);
 		
 		Tab aba2 = actionBar.newTab();
-		aba2.setText("Todos Eventos");
+		aba2.setText("Participando");
 		aba2.setTabListener(this);
+		
+		Tab aba3 = actionBar.newTab();
+		aba3.setText("Amigos");
+		aba3.setTabListener(this);
 		
 		actionBar.addTab(aba1);
 		actionBar.addTab(aba2);		
+		actionBar.addTab(aba3);
 	}
 	
 
@@ -64,10 +70,9 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
+		pager.setCurrentItem(tab.getPosition());
 	}
-
+	
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
@@ -85,13 +90,20 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 		public Fragment getItem(int position) {
 			if (position == 0){
 				return fragment1;
+				
+			} else {
+				if (position == 1){
+					return fragment2;
+				} else {
+					return fragment3;
+				}
 			}
-			return fragment2;
+			
 		}
 
 		@Override
 		public int getCount() {
-			return 2;
+			return 3;
 		}
 	}
 
