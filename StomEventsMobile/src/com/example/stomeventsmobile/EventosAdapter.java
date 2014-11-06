@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 public class EventosAdapter extends ArrayAdapter<Evento> {
+	
+	// PEGA A STRING DO CAMINHO DO SERVIDOR 
+	Config fotoEvento  = new Config();
 
 	public EventosAdapter(Context context, List<Evento> objects) {
 		super(context, 0, 0, objects);
@@ -49,7 +52,7 @@ public class EventosAdapter extends ArrayAdapter<Evento> {
 
 		
 		Picasso.with(getContext())
-		.load("http://192.168.56.102:8080/StormEvents/fotosEventos/"+evento.capa)
+		.load(fotoEvento.retornaFotoEvento()+evento.capa)
 		.noFade()
 		.into(holder.capaLivro);
 

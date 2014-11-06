@@ -14,15 +14,17 @@ import org.json.JSONObject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.EditText;
+import android.widget.EditText; 
 
 public class LoginActivity extends Activity {
 	
 	//ELEMENTOS DA TELA
 	Button btnLogin;
 	EditText textLogin;
-	EditText textSenha;	
+	EditText textSenha;
 	
+	// PEGA A STRING DO CAMINHO DO SERVIDOR 
+	Config fachadaServidor  = new Config();	
 
 	//PARÂMETROS DA CONSULTA
 	String usuLogin;
@@ -34,9 +36,6 @@ public class LoginActivity extends Activity {
 
 	// JSON parser class
 	JSONParser jsonParser = new JSONParser();
-
-	// single product url
-	private static final String url_consulta_login = "http://192.168.56.102/android/fachada.php";
 	
 	// JSON Node names
 	private static final String TAG_SUCCESS = "success";
@@ -90,7 +89,7 @@ public class LoginActivity extends Activity {
 
 						// PEGANDO AS INFORMAÇÕES DO WEB SERVICE
 						JSONObject json = jsonParser.makeHttpRequest(
-								url_consulta_login, "GET", params);
+								fachadaServidor.retornaFachada(), "GET", params);
 
 						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU						
 					//		Toast.makeText(LoginActivity.this,json.toString(),Toast.LENGTH_LONG).show();
@@ -102,7 +101,7 @@ public class LoginActivity extends Activity {
 							Intent i = new Intent(getApplicationContext(), ListaEventosActivity.class);
 							startActivity(i);
 						}else{
-							Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();
+							Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();							
 						}
 						
 					} catch (JSONException e) {

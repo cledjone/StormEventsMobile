@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 public class AmigosAdapter extends ArrayAdapter<Amigo> {
+	
+	// PEGA A STRING DO CAMINHO DO SERVIDOR 
+	Config fotoUsuario  = new Config();
 
 	public AmigosAdapter(Context context, List<Amigo> objects) {
 		super(context, 0, 0, objects);
@@ -35,8 +38,8 @@ public class AmigosAdapter extends ArrayAdapter<Amigo> {
 					.findViewById(R.id.txtAutor);
 			holder.editora = (TextView) convertView
 					.findViewById(R.id.txtEditora);			
-			//holder.capaLivro = (ImageView) convertView
-				//	.findViewById(R.id.imageView1);			
+			holder.capaLivro = (ImageView) convertView
+					.findViewById(R.id.imageView1);			
 			convertView.setTag(holder);
 
 		} else {
@@ -48,16 +51,16 @@ public class AmigosAdapter extends ArrayAdapter<Amigo> {
 		holder.autor.setText(amigo.autor);	
 
 		
-	/*	Picasso.with(getContext())
-		.load("http://192.168.56.102:8080/StormEvents/fotosUsuarios/"+amigo.capa)
+		Picasso.with(getContext())
+		.load(fotoUsuario.retornaFotoUsuario()+amigo.capa)
 		.noFade()
-		.into(holder.capaLivro); */
+		.into(holder.capaLivro);
 
 		return convertView;
 	}
 
 	static class ViewHolder {
-		//ImageView capaLivro;
+		ImageView capaLivro;
 		TextView titulo;
 		TextView autor;
 		TextView editora;		

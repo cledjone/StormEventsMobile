@@ -27,8 +27,8 @@ public class ListAmigosFragment extends ListFragment {
 	// Creating JSON Parser object
 	JSONParser jParser = new JSONParser();	
 
-	// url to get all products list
-	private static String url_todos_amigos = "http://192.168.56.102/android/fachada.php";	
+	// PEGA A STRING DO CAMINHO DO SERVIDOR 
+	Config fachadaServidor  = new Config();	
 
 	List<Amigo> amigos;
 	String tipoConsulta;
@@ -130,7 +130,7 @@ public class ListAmigosFragment extends ListFragment {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("consulta", tipoConsulta));
 			// getting JSON string from URL
-			JSONObject json = jParser.makeHttpRequest(url_todos_amigos, "GET", params);
+			JSONObject json = jParser.makeHttpRequest(fachadaServidor.retornaFachada(), "GET", params);
 			
 			// CRIA UM LOG NO LOGCAT COM O RESULTADO DO JSON
 			Log.d("Todos Amigos: ", json.toString());
