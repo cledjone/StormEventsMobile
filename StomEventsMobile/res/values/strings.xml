@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">StomEventsMobile</string>
+    <string name="app_name">Storm Events</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_lista_eventos">ListaEventosActivity</string>
+    <string name="title_activity_lista_eventos">Tela Principal</string>
     <string name="title_activity_evento">EventoActivity</string>
 
 </resources>

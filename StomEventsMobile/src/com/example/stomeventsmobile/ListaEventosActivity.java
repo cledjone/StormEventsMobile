@@ -1,6 +1,6 @@
 package com.example.stomeventsmobile;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +14,7 @@ import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 
 
-public class ListaEventosActivity extends ActionBarActivity implements TabListener, ClicouNoEvento{
+public class ListaEventosActivity extends ActionBarActivity implements TabListener, ClicouNoItem{
 	
 	ListEventosFragment fragment1;
 	ListMeusEventosFragment fragment2;
@@ -111,6 +111,16 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 	@Override
 	public void eventoFoiClicado(Evento evento) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void amigoFoiClicado(Amigo amigo) {
+		Intent it = new Intent(this, DetalheAmigoActivity.class);
+		it.putExtra("amigo", amigo);
+		it.putExtra("tablet", "celular");
+		startActivity(it);
 		
 	}
 

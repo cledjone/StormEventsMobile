@@ -89,18 +89,10 @@ public class ListAmigosFragment extends ListFragment {
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		//amigosRepositorio db = new amigosRepositorio(getActivity());
-		/*int idLivro = db.verificaFavorito(amigos.get(position));
-		 if (idLivro>-1){			 
-			 amigos.get(position).favorito=true;
-		 }else {
-			 amigos.get(position).favorito=false;
-		 }	
-		 amigos.get(position).id = idLivro;
-		if (getActivity() instanceof ClicouNoAmigo){
-			((ClicouNoAmigo)getActivity()).livroFoiClicado(amigos.get(position));
-		}*/
+		super.onListItemClick(l, v, position, id);		
+		if (getActivity() instanceof ClicouNoItem){
+			((ClicouNoItem)getActivity()).amigoFoiClicado((amigos.get(position)));
+		}
 	}
 
 	private void refreshList() {			
