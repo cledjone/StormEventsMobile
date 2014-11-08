@@ -30,6 +30,10 @@
             android:label="@string/title_activity_lista_eventos" >
         </activity>
         <activity
+            android:name="com.example.stomeventsmobile.DetalheAmigoActivity"
+            android:label="@string/title_activity_lista_eventos" >
+        </activity>
+        <activity
             android:name="com.example.stomeventsmobile.EventoActivity"
             android:label="@string/title_activity_evento" >
         </activity>
