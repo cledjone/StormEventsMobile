@@ -2,11 +2,15 @@ package com.example.stomeventsmobile;
 
 import android.widget.Toast;
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -16,7 +20,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.EditText; 
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity {	
 	
 	//ELEMENTOS DA TELA
 	Button btnLogin;
@@ -48,7 +52,8 @@ public class LoginActivity extends Activity {
 		//ATRIBUI OS INPUTS A VARIAVEIS
 		btnLogin = (Button) findViewById(R.id.btn_logar);
 		textLogin = (EditText) findViewById(R.id.editLogin);
-		textSenha = (EditText) findViewById(R.id.editSenha);
+		textSenha = (EditText) findViewById(R.id.editSenha);		
+				
 		
 		btnLogin.setOnClickListener(new View.OnClickListener() {			
 			@Override
@@ -63,6 +68,8 @@ public class LoginActivity extends Activity {
 		});		
 		
 	}    
+		
+	 
     
 	class VerificaLogin extends AsyncTask<String, String, String> {	
 		@Override

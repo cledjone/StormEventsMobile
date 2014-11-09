@@ -37,6 +37,10 @@
             android:name="com.example.stomeventsmobile.EventoActivity"
             android:label="@string/title_activity_evento" >
         </activity>
+        <activity
+            android:name="com.example.stomeventsmobile.ChatActivity"
+            android:label="@string/title_activity_evento" >
+        </activity>
     </application>   
     
 

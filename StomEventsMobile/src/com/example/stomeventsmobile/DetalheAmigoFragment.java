@@ -3,6 +3,7 @@ package com.example.stomeventsmobile;
 
 import com.squareup.picasso.Picasso;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ public class DetalheAmigoFragment extends Fragment {
 	TextView txtAutor;
 	TextView txtEditora;
 	TextView txtDescricao;	
-	MenuItem btnSalvarExcluir;	
+	MenuItem btnConversar;	
 	String tablet;
 	
 	public static DetalheAmigoFragment novaInstancia(Amigo amigo){
@@ -78,19 +79,21 @@ public class DetalheAmigoFragment extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.detalhe, menu);
-		btnSalvarExcluir = menu.findItem(R.id.action_favoritos);
-		if (amigo.favorito){
-			btnSalvarExcluir.setIcon(android.R.drawable.ic_menu_delete);
-		} else {
-			btnSalvarExcluir.setIcon(android.R.drawable.ic_menu_save);
-		}		
+		btnConversar = menu.findItem(R.id.action_favoritos);		
+		btnConversar.setIcon(android.R.drawable.ic_menu_call);	
 		
 	}
 	
 
 	
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {			
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent i = new Intent(this.getActivity(), ChatActivity.class);
+		startActivity(i);		
+		
+	//	Intent i = new Intent(this, ChatActivity.class);
+	//	startActivity(i);			
+		
 	/*		if (getActivity() instanceof AmigoNosFavoritos){
 				((AmigoNosFavoritos)getActivity()).amigoAdicionadoAoFavorito(amigo);
 			}
