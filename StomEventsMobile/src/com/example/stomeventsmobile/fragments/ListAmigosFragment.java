@@ -1,4 +1,4 @@
-package com.example.stomeventsmobile;
+package com.example.stomeventsmobile.fragments;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,15 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.example.stomeventsmobile.R;
+import com.example.stomeventsmobile.R.id;
+import com.example.stomeventsmobile.R.layout;
+import com.example.stomeventsmobile.adapters.AmigosAdapter;
+import com.example.stomeventsmobile.basicas.Amigo;
+import com.example.stomeventsmobile.utils.ClicouNoItem;
+import com.example.stomeventsmobile.utils.Config;
+import com.example.stomeventsmobile.utils.JSONParser;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -21,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListAmigosFragment extends ListFragment {
 	
@@ -137,13 +147,15 @@ public class ListAmigosFragment extends ListFragment {
 				JSONObject jsonEntry = jsonEntries.getJSONObject(i);			
 						
 				Amigo amigo = new Amigo(
-					jsonEntry.getString("ID_USU"),
+					Integer.parseInt(jsonEntry.getString("ID_USU")),
+					jsonEntry.getString("EMAIL_USU"),
 					jsonEntry.getString("EMAIL_USU"),
 					jsonEntry.getString("FOTO_USU"),
 					jsonEntry.getString("NOME_USU"),
-					jsonEntry.getString("TEL_USU"));			
+					jsonEntry.getString("TEL_USU"),			
+					jsonEntry.getString("LOGIN_USU"));
 					amigos.add(amigo);
-				}	
+				}				
 				return amigos;								
 			} catch (Exception e) {
 				e.printStackTrace();

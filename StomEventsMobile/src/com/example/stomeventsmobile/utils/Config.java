@@ -1,4 +1,4 @@
-package com.example.stomeventsmobile;
+package com.example.stomeventsmobile.utils;
 
 public class Config {
 	public String  retornaFachada() {

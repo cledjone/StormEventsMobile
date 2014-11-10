@@ -1,6 +1,13 @@
-package com.example.stomeventsmobile;
+package com.example.stomeventsmobile.fragments;
 
 
+import com.example.stomeventsmobile.R;
+import com.example.stomeventsmobile.R.id;
+import com.example.stomeventsmobile.R.layout;
+import com.example.stomeventsmobile.R.menu;
+import com.example.stomeventsmobile.activitys.ChatActivity;
+import com.example.stomeventsmobile.basicas.Amigo;
+import com.example.stomeventsmobile.utils.Config;
 import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
@@ -22,12 +29,17 @@ public class DetalheAmigoFragment extends Fragment {
 
 	Amigo amigo;
 	
+	String fotoUsu;
+	String fotoOutroUsu;
+	String usuarioLogado;
+	String usuarioDestino;
 	ImageView imgCapa;
 	TextView txtTitulo;	
 	TextView txtAutor;
 	TextView txtEditora;
 	TextView txtDescricao;	
 	MenuItem btnConversar;	
+	
 	String tablet;
 	
 	public static DetalheAmigoFragment novaInstancia(Amigo amigo){
@@ -42,7 +54,8 @@ public class DetalheAmigoFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(true);		
+		setHasOptionsMenu(true);	
+		
 	}
 	
 	
@@ -65,6 +78,11 @@ public class DetalheAmigoFragment extends Fragment {
 		txtAutor.setText(amigo.autor);
 		txtEditora.setText(amigo.editora);
 		txtDescricao.setText(amigo.descricao);
+		
+		usuarioLogado = amigo.usuarioLogado;
+		usuarioDestino = amigo.login;
+		fotoUsu = amigo.fotoUsuarioLogado;
+		fotoOutroUsu = amigo.capa;
 		
 		Picasso.with(this.getActivity())
 		.load(fotoUsuario.retornaFotoUsuario()+amigo.capa)
@@ -89,6 +107,10 @@ public class DetalheAmigoFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent i = new Intent(this.getActivity(), ChatActivity.class);
+		i.putExtra("usuarioLogado", usuarioLogado);
+		i.putExtra("usuarioDestino", usuarioDestino);
+		i.putExtra("fotoUsu", fotoUsu);
+		i.putExtra("fotoOutroUsu", fotoOutroUsu);
 		startActivity(i);		
 		
 	//	Intent i = new Intent(this, ChatActivity.class);

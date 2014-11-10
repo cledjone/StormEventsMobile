@@ -1,4 +1,4 @@
-package com.example.stomeventsmobile;
+package com.example.stomeventsmobile.basicas;
 
 import java.io.Serializable;
 
@@ -8,11 +8,11 @@ public class Evento implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	long id;
-	String titulo;
-	String autor;
-	String capa;
-	String editora;
-	String descricao;
+	public String titulo;
+	public String autor;
+	public String capa;
+	public String editora;
+	public String descricao;
 	public boolean favorito;
 	
 	

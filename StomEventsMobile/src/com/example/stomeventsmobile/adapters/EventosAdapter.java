@@ -1,4 +1,4 @@
-package com.example.stomeventsmobile;
+package com.example.stomeventsmobile.adapters;
 
 import java.util.List;
 
@@ -9,14 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.stomeventsmobile.R;
+import com.example.stomeventsmobile.R.id;
+import com.example.stomeventsmobile.R.layout;
+import com.example.stomeventsmobile.basicas.Evento;
+import com.example.stomeventsmobile.utils.Config;
 import com.squareup.picasso.Picasso;
 
-public class AmigosAdapter extends ArrayAdapter<Amigo> {
+public class EventosAdapter extends ArrayAdapter<Evento> {
 	
 	// PEGA A STRING DO CAMINHO DO SERVIDOR 
-	Config fotoUsuario  = new Config();
+	Config fotoEvento  = new Config();
 
-	public AmigosAdapter(Context context, List<Amigo> objects) {
+	public EventosAdapter(Context context, List<Evento> objects) {
 		super(context, 0, 0, objects);
 		
 	}	
@@ -25,11 +31,11 @@ public class AmigosAdapter extends ArrayAdapter<Amigo> {
 
 		ViewHolder holder;
 
-		Amigo amigo = getItem(position);
+		Evento evento = getItem(position);
 
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(
-					R.layout.linha_amigo, null);		
+					R.layout.linha_evento, null);		
 
 			holder = new ViewHolder();
 			holder.titulo = (TextView) convertView
@@ -46,13 +52,13 @@ public class AmigosAdapter extends ArrayAdapter<Amigo> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.titulo.setText(amigo.titulo);
-		holder.editora.setText(amigo.editora);
-		holder.autor.setText(amigo.autor);	
+		holder.titulo.setText(evento.titulo);
+		holder.editora.setText(evento.editora);
+		holder.autor.setText(evento.autor);	
 
 		
 		Picasso.with(getContext())
-		.load(fotoUsuario.retornaFotoUsuario()+amigo.capa)
+		.load(fotoEvento.retornaFotoEvento()+evento.capa)
 		.noFade()
 		.into(holder.capaLivro);
 

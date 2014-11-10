@@ -1,20 +1,27 @@
-package com.example.stomeventsmobile;
+package com.example.stomeventsmobile.activitys;
 
 import android.widget.Toast;
 import android.os.Bundle;
-import android.os.Handler;
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.example.stomeventsmobile.R;
+import com.example.stomeventsmobile.R.id;
+import com.example.stomeventsmobile.R.layout;
+import com.example.stomeventsmobile.basicas.Evento;
+import com.example.stomeventsmobile.utils.Config;
+import com.example.stomeventsmobile.utils.JSONParser;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -34,6 +41,7 @@ public class LoginActivity extends Activity {
 	String usuLogin;
 	String usuSenha;	
 	String tipoConsulta;
+	String fotoUsu;
 
 	// Progress Dialog
 	private ProgressDialog pDialog;
@@ -96,17 +104,23 @@ public class LoginActivity extends Activity {
 
 						// PEGANDO AS INFORMAÇÕES DO WEB SERVICE
 						JSONObject json = jsonParser.makeHttpRequest(
-								fachadaServidor.retornaFachada(), "GET", params);
+								fachadaServidor.retornaFachada(), "GET", params);						
 
 						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU						
-					//		Toast.makeText(LoginActivity.this,json.toString(),Toast.LENGTH_LONG).show();
+						//Toast.makeText(LoginActivity.this,json.toString(),Toast.LENGTH_LONG).show();
 						
 						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
 						success = json.getInt(TAG_SUCCESS);
 						if (success == 1) {							
 							Toast.makeText(LoginActivity.this,"Usuario Logado Com Sucesso!",Toast.LENGTH_LONG).show();
+							//PEGA A FOTO DO USUARIO NO RETORNO
+							JSONArray jsonEntries = json.getJSONArray("TAB_USU");							
+							JSONObject jsonEntry = jsonEntries.getJSONObject(0);			
+							fotoUsu = jsonEntry.getString("FOTO_USU");							
 							Intent i = new Intent(getApplicationContext(), ListaEventosActivity.class);
-							startActivity(i);
+							i.putExtra("usuarioLogado", usuLogin.toString());
+							i.putExtra("fotoUsu", fotoUsu);
+							startActivity(i);							
 						}else{
 							Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();							
 						}

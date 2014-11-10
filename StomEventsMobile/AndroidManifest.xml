@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.stomeventsmobile.LoginActivity"
+            android:name="com.example.stomeventsmobile.activitys.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +26,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.stomeventsmobile.ListaEventosActivity"
+            android:name="com.example.stomeventsmobile.activitys.ListaEventosActivity"
             android:label="@string/title_activity_lista_eventos" >
         </activity>
         <activity
-            android:name="com.example.stomeventsmobile.DetalheAmigoActivity"
+            android:name="com.example.stomeventsmobile.activitys.DetalheAmigoActivity"
             android:label="@string/title_activity_lista_eventos" >
         </activity>
         <activity
@@ -38,7 +38,7 @@
             android:label="@string/title_activity_evento" >
         </activity>
         <activity
-            android:name="com.example.stomeventsmobile.ChatActivity"
+            android:name="com.example.stomeventsmobile.activitys.ChatActivity"
             android:label="@string/title_activity_evento" >
         </activity>
     </application>   
