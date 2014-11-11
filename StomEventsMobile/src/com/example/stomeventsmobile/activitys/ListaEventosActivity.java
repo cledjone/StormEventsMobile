@@ -126,8 +126,11 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 
 	@Override
 	public void eventoFoiClicado(Evento evento) {
-		// TODO Auto-generated method stub
-		
+		Intent it = new Intent(this, DetalheEventoActivity.class);
+		it.putExtra("usuarioLogado", usuarioLogado);
+		it.putExtra("evento", evento);
+		it.putExtra("fotoUsu", fotoUsu);
+		startActivity(it);		
 	}
 
 

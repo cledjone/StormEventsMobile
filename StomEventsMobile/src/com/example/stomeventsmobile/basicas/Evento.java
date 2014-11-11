@@ -13,6 +13,8 @@ public class Evento implements Serializable {
 	public String capa;
 	public String editora;
 	public String descricao;
+	public String usuarioLogado;
+	public String fotoUsuarioLogado;
 	public boolean favorito;
 	
 	

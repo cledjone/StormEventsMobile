@@ -13,6 +13,7 @@ import com.example.stomeventsmobile.R.id;
 import com.example.stomeventsmobile.R.layout;
 import com.example.stomeventsmobile.adapters.EventosAdapter;
 import com.example.stomeventsmobile.basicas.Evento;
+import com.example.stomeventsmobile.utils.ClicouNoItem;
 import com.example.stomeventsmobile.utils.Config;
 import com.example.stomeventsmobile.utils.JSONParser;
 
@@ -99,18 +100,10 @@ public class ListMeusEventosFragment extends ListFragment {
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		//eventosRepositorio db = new eventosRepositorio(getActivity());
-		/*int idLivro = db.verificaFavorito(eventos.get(position));
-		 if (idLivro>-1){			 
-			 eventos.get(position).favorito=true;
-		 }else {
-			 eventos.get(position).favorito=false;
-		 }	
-		 eventos.get(position).id = idLivro;
-		if (getActivity() instanceof ClicouNoEvento){
-			((ClicouNoEvento)getActivity()).livroFoiClicado(eventos.get(position));
-		}*/
+		super.onListItemClick(l, v, position, id);		 
+		if (getActivity() instanceof ClicouNoItem){
+			((ClicouNoItem)getActivity()).eventoFoiClicado(eventos.get(position));
+		}
 	}
 
 	private void refreshList() {			

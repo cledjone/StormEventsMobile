@@ -47,9 +47,7 @@ public class ChatActivity extends ListActivity {
 	
 	List<Chat> mensagens;
 	ChatAdapter adapter;
-	Timer myTimer = new Timer();
-	boolean esperandoEnviar = false;
-	boolean esperandoReceber = false;
+	Timer myTimer = new Timer();	
 	
 	// PEGA A STRING DO CAMINHO DO SERVIDOR 
 	Config fachadaServidor  = new Config();
@@ -66,10 +64,6 @@ public class ChatActivity extends ListActivity {
 	public ListView msgView;
 	public ArrayAdapter<String> msgList;
 	
-	
-	
-	//public ArrayAdapter<String> msgList=new ArrayAdapter<String>(this,
-		//	android.R.layout.simple_list_item_1);;
 	
 	EditText textChat;
 	Button btnEnviar;
@@ -90,11 +84,8 @@ public class ChatActivity extends ListActivity {
 	  
 	  final Runnable myRunnable = new Runnable() {
 	      public void run() {	    	  	    	
-	    		tipoConsulta = "consulta_chat";
-	    		esperandoReceber = true;		    		
-					new RecebeMensagem().execute();								
-					adapter.notifyDataSetChanged();	    		
-				esperandoReceber = false;
+	    	tipoConsulta = "consulta_chat";	    				    		
+			new RecebeMensagem().execute();			
 	      }
 	   };	
 	
@@ -103,14 +94,10 @@ public class ChatActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.chat);
+		setContentView(R.layout.chat);		
 		
-		if (savedInstanceState == null){
-			mensagens = new ArrayList<Chat>();
-		} else {
-			mensagens = (ArrayList<Chat>)savedInstanceState.getSerializable("lista");
-		}
-		
+		mensagens = new ArrayList<Chat>();
+				
 		adapter = new ChatAdapter(this, mensagens);
 		setListAdapter(adapter);
 	
@@ -118,39 +105,23 @@ public class ChatActivity extends ListActivity {
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
 		usuarioDestino = getIntent().getStringExtra("usuarioDestino");		
 		fotoUsu = getIntent().getStringExtra("fotoUsu");
-		fotoOutroUsu = getIntent().getStringExtra("fotoOutroUsu");			
+		fotoOutroUsu = getIntent().getStringExtra("fotoOutroUsu");
+		msgView = (ListView) findViewById(android.R.id.list);
+		btnEnviar = (Button) findViewById(R.id.btn_enviar);	
 		  
+		 //TIMER QUE ATUALIZA AS MENSAGENS
 	      myTimer.schedule(new TimerTask() {
 	         @Override
 	         public void run() {UpdateGUI();}
-	      }, 0, 30000);
-	
-
-	//	msgView = (ListView) findViewById(R.id.list);
-
-	//	msgList = new ArrayAdapter<String>(this,
-		//		android.R.layout.simple_list_item_1);
-	//	msgView.setAdapter(msgList);
-
-//		msgView.smoothScrollToPosition(msgList.getCount() - 1);
-
-		//Button btnSend = (Button) findViewById(R.id.btn_Send);
-		 btnEnviar = (Button) findViewById(R.id.btn_enviar);
-		
-		//receiveMsg();
+	      }, 0, 15000);			
 				
 		btnEnviar.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
-				esperandoEnviar = true;						
-					tipoConsulta = "incluir_chat";
-					mensagemEscrita =textChat.getText().toString();
-					new EnviaMensagem().execute();				
-					mensagens.add(new Chat(usuarioLogado, usuarioDestino,mensagemEscrita,fotoUsu));				
-					adapter.notifyDataSetChanged();
-					textChat.setText("");	
-				esperandoEnviar = false;
+			public void onClick(View v) {						
+				tipoConsulta = "incluir_chat";
+				mensagemEscrita = textChat.getText().toString();
+				new EnviaMensagem().execute();				
 			}			
 		}
 		
@@ -165,14 +136,6 @@ public class ChatActivity extends ListActivity {
 	    finish();
 	    return;
 	}   
-	
-	
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putSerializable("lista", (Serializable)mensagens);
-	}
-	
 	
 
 	class RecebeMensagem extends AsyncTask<String, String, String> {	
@@ -202,25 +165,16 @@ public class ChatActivity extends ListActivity {
 						
 						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
 						success = json.getInt(TAG_SUCCESS);
-						if (success == 1) {								
-							
+						if (success == 1) {							
 							JSONArray jsonEntries = json.getJSONArray("tab_chat");							
 							for (int i = 0; i < jsonEntries.length(); i++) {							
 								JSONObject jsonEntry = jsonEntries.getJSONObject(i);
 								mensagemRecebida = jsonEntry.getString("mensagem");
-								mensagens.add(new Chat(usuarioLogado, usuarioDestino,mensagemRecebida,fotoOutroUsu));
+								mensagens.add(new Chat(usuarioLogado, usuarioDestino,mensagemRecebida,fotoOutroUsu, false));
 															
 							}				
-							
-							
-							//Toast.makeText(LoginActivity.this,"Usuario Logado Com Sucesso!",Toast.LENGTH_LONG).show();							
-						//	Intent i = new Intent(getApplicationContext(), ListaEventosActivity.class);
-						//	i.putExtra("usuarioLogado", usuLogin.toString());
-						//	startActivity(i);							
-						}else{
-							//Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();							
-						}
-						
+							adapter.notifyDataSetChanged();
+						}						
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -262,19 +216,15 @@ public class ChatActivity extends ListActivity {
 								fachadaServidor.retornaFachada(), "GET", params);
 
 						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU						
-							Toast.makeText(ChatActivity.this,json.toString(),Toast.LENGTH_LONG).show();
+						 //Toast.makeText(ChatActivity.this,json.toString(),Toast.LENGTH_LONG).show();
 						
 						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
 						success = json.getInt(TAG_SUCCESS);
 						if (success == 1) {							
-							//Toast.makeText(LoginActivity.this,"Usuario Logado Com Sucesso!",Toast.LENGTH_LONG).show();							
-						//	Intent i = new Intent(getApplicationContext(), ListaEventosActivity.class);
-						//	i.putExtra("usuarioLogado", usuLogin.toString());
-						//	startActivity(i);							
-						}else{
-							//Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();							
-						}
-						
+							mensagens.add(new Chat(usuarioLogado, usuarioDestino,mensagemEscrita,fotoUsu, true));				
+							adapter.notifyDataSetChanged();
+							textChat.setText("");
+						}						
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -287,24 +237,6 @@ public class ChatActivity extends ListActivity {
 		protected void onPostExecute(String file_url) {			
 			
 		}
-	}    
-	
-	
-	
-	public void displayMsg(String msg)
-	{ 
-		final String mssg=msg;
-	    handler.post(new Runnable() {
-			
-			@Override
-			public void run() {			
-				msgList.add(mssg);
-				msgView.setAdapter(msgList);
-				msgView.smoothScrollToPosition(msgList.getCount() - 1);
-				Log.d("","hi");
-			}
-		});
-		
 	}
 
 }

@@ -11,11 +11,13 @@ public class Chat implements Serializable {
 	public String loginDestino;
 	public String mensagem;
 	public String fotoUsuario;
+	public boolean remetente ;
 		
-	public Chat(String loginOrigem, String loginDestino, String mensagem, String fotoUsuario) {
+	public Chat(String loginOrigem, String loginDestino, String mensagem, String fotoUsuario, boolean remetente) {
 		this.loginOrigem = loginOrigem;
 		this.loginDestino = loginDestino;
 		this.mensagem = mensagem;
 		this.fotoUsuario = fotoUsuario;		
+		this.remetente = remetente;
 	}
 }

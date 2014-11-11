@@ -3,7 +3,6 @@ package com.example.stomeventsmobile.adapters;
 import java.util.List;
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.activitys.DetalheAmigoActivity;
 import com.example.stomeventsmobile.basicas.Chat;
 import com.example.stomeventsmobile.utils.Config;
 import com.squareup.picasso.Picasso;
@@ -19,7 +18,8 @@ import android.widget.TextView;
 public class ChatAdapter extends BaseAdapter {
 
 	List<Chat> mensagens;
-	ImageView exibeFotoUsu;
+	ImageView exibeFotoUsuRemet;
+	ImageView exibeFotoUsuDest;
 	Context ctx;
 	// PEGA A STRING DO CAMINHO DO SERVIDOR 
 	Config caminhoFotoUsuario  = new Config();
@@ -47,26 +47,47 @@ public class ChatAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		
 		// 1 passo
 		Chat chat = mensagens.get(position);
+		
 		// 2 passo
 		if (convertView == null){
 			convertView = LayoutInflater.from(ctx).
 					inflate(R.layout.item_chat, null);
 		}
+		
 		// 3 passo		
-		TextView txtModelo = (TextView)convertView.findViewById(R.id.txtModelo);
-		exibeFotoUsu = (ImageView) convertView.findViewById(R.id.imgLogo);		
-	//	TextView txtAno = (TextView)convertView.findViewById(R.id.txtAno);		
-				
-		txtModelo.setText(chat.mensagem);
+		TextView txtRemetente = (TextView)convertView.findViewById(R.id.txtRemet);
+		exibeFotoUsuRemet = (ImageView) convertView.findViewById(R.id.imgLogoRemet);
+		TextView txtDestinatario = (TextView)convertView.findViewById(R.id.txtDest);
+		exibeFotoUsuDest = (ImageView) convertView.findViewById(R.id.imgLogoDest);
 		
-		Picasso.with(this.ctx)
-		.load(caminhoFotoUsuario.retornaFotoUsuario()+chat.fotoUsuario)
-		.noFade()
-		.into(exibeFotoUsu);
-		
-		//txtAno.setText(String.valueOf());
+		if (chat.remetente){
+			txtRemetente.setText(chat.mensagem);			
+			Picasso.with(this.ctx)
+			.load(caminhoFotoUsuario.retornaFotoUsuario()+chat.fotoUsuario)
+			.noFade()
+			.into(exibeFotoUsuRemet);
+			
+			txtDestinatario.setText("");			
+			Picasso.with(this.ctx)
+			.load(caminhoFotoUsuario.retornaFotoUsuario())
+			.noFade()
+			.into(exibeFotoUsuDest);			
+		} else {
+			txtRemetente.setText("");			
+			Picasso.with(this.ctx)
+			.load(caminhoFotoUsuario.retornaFotoUsuario())
+			.noFade()
+			.into(exibeFotoUsuRemet);
+			
+			txtDestinatario.setText(chat.mensagem);			
+			Picasso.with(this.ctx)
+			.load(caminhoFotoUsuario.retornaFotoUsuario()+chat.fotoUsuario)
+			.noFade()
+			.into(exibeFotoUsuDest);			
+		}
 		
 		// 4 passo
 		return convertView;

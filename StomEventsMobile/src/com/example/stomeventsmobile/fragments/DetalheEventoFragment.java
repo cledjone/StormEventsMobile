@@ -2,11 +2,8 @@ package com.example.stomeventsmobile.fragments;
 
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.R.id;
-import com.example.stomeventsmobile.R.layout;
-import com.example.stomeventsmobile.R.menu;
 import com.example.stomeventsmobile.activitys.ChatActivity;
-import com.example.stomeventsmobile.basicas.Amigo;
+import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.utils.Config;
 import com.squareup.picasso.Picasso;
 
@@ -22,12 +19,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetalheAmigoFragment extends Fragment {
+public class DetalheEventoFragment extends Fragment {
 
 	// PEGA A STRING DO CAMINHO DO SERVIDOR 
     Config fotoUsuario  = new Config();
 
-	Amigo amigo;
+	Evento evento;
 	
 	String fotoUsu;
 	String fotoOutroUsu;
@@ -42,11 +39,11 @@ public class DetalheAmigoFragment extends Fragment {
 	
 	String tablet;
 	
-	public static DetalheAmigoFragment novaInstancia(Amigo amigo){
+	public static DetalheEventoFragment novaInstancia(Evento evento){
 		Bundle args = new Bundle();
-		args.putSerializable("amigo", amigo);
+		args.putSerializable("evento", evento);
 		
-		DetalheAmigoFragment f = new DetalheAmigoFragment();
+		DetalheEventoFragment f = new DetalheEventoFragment();
 		f.setArguments(args);
 		return f;
 	}
@@ -73,19 +70,18 @@ public class DetalheAmigoFragment extends Fragment {
 		txtEditora = (TextView)layout.findViewById(R.id.txtEditora);	
 		txtDescricao = (TextView)layout.findViewById(R.id.txtDescricao);
 		
-		amigo = (Amigo)getArguments().getSerializable("amigo");
-		txtTitulo.setText(amigo.titulo);
-		txtAutor.setText(amigo.autor);
-		txtEditora.setText(amigo.editora);
-		txtDescricao.setText(amigo.descricao);
+		evento = (Evento)getArguments().getSerializable("evento");
+		txtTitulo.setText(evento.titulo);
+		txtAutor.setText(evento.autor);
+		txtEditora.setText(evento.editora);
+		txtDescricao.setText(evento.descricao);
 		
-		usuarioLogado = amigo.usuarioLogado;
-		usuarioDestino = amigo.login;
-		fotoUsu = amigo.fotoUsuarioLogado;
-		fotoOutroUsu = amigo.capa;
+		usuarioLogado = evento.usuarioLogado;		
+		fotoUsu = evento.fotoUsuarioLogado;
+		fotoOutroUsu = evento.capa;
 		
 		Picasso.with(this.getActivity())
-		.load(fotoUsuario.retornaFotoUsuario()+amigo.capa)
+		.load(fotoUsuario.retornaFotoEvento()+evento.capa)
 		.noFade()
 		.into(imgCapa);
 		
@@ -116,8 +112,8 @@ public class DetalheAmigoFragment extends Fragment {
 	//	Intent i = new Intent(this, ChatActivity.class);
 	//	startActivity(i);			
 		
-	/*		if (getActivity() instanceof AmigoNosFavoritos){
-				((AmigoNosFavoritos)getActivity()).amigoAdicionadoAoFavorito(amigo);
+	/*		if (getActivity() instanceof EventoNosFavoritos){
+				((EventoNosFavoritos)getActivity()).eventoAdicionadoAoFavorito(evento);
 			}
 			
 		}		
@@ -136,8 +132,8 @@ public class DetalheAmigoFragment extends Fragment {
 		return true;
 	}
 	
-	interface AmigoNosFavoritos {
-		void amigoAdicionadoAoFavorito(Amigo amigo);
+	interface EventoNosFavoritos {
+		void eventoAdicionadoAoFavorito(Evento evento);
 	}
 	
 }
