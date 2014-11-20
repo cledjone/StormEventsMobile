@@ -6,7 +6,6 @@ import com.example.stomeventsmobile.basicas.Amigo;
 import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.fragments.ListAmigosFragment;
 import com.example.stomeventsmobile.fragments.ListEventosFragment;
-import com.example.stomeventsmobile.fragments.ListMeusEventosFragment;
 import com.example.stomeventsmobile.utils.ClicouNoItem;
 
 import android.content.Intent;
@@ -21,30 +20,30 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 
-public class ListaEventosActivity extends ActionBarActivity implements TabListener, ClicouNoItem{
+public class HomeActivity extends ActionBarActivity implements TabListener, ClicouNoItem{
 	
 	String usuarioLogado;
-	String fotoUsu;
+	String fotoUsu;	
+	String id_usu;
 	ListEventosFragment fragment1;
-	ListMeusEventosFragment fragment2;
-	ListAmigosFragment fragment3;
+	ListAmigosFragment fragment2;
 	ViewPager pager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lista_eventos_activity);
+		setContentView(R.layout.home_activity);
 				
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
-		fotoUsu = getIntent().getStringExtra("fotoUsu");		
-
+		fotoUsu = getIntent().getStringExtra("fotoUsu");
+		id_usu = getIntent().getStringExtra("id_usu");			
 		
-		fragment1 = new ListEventosFragment();
-		fragment2 = new ListMeusEventosFragment();
-		fragment3 = new ListAmigosFragment();
+		fragment1 = new ListEventosFragment(id_usu);
+		fragment2 = new ListAmigosFragment();
 				
 		final ActionBar actionBar = getSupportActionBar();
 		
@@ -61,20 +60,15 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
 		Tab aba1 = actionBar.newTab();
-		aba1.setText("Eventos");
+		aba1.setText("Meus Eventos");
 		aba1.setTabListener(this);
 		
 		Tab aba2 = actionBar.newTab();
-		aba2.setText("Participando");
-		aba2.setTabListener(this);
-		
-		Tab aba3 = actionBar.newTab();
-		aba3.setText("Amigos");
-		aba3.setTabListener(this);
+		aba2.setText("Meus Amigos");
+		aba2.setTabListener(this);		
 		
 		actionBar.addTab(aba1);
 		actionBar.addTab(aba2);		
-		actionBar.addTab(aba3);
 	}
 	
 
@@ -106,20 +100,13 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 		public Fragment getItem(int position) {
 			if (position == 0){
 				return fragment1;
-				
-			} else {
-				if (position == 1){
-					return fragment2;
-				} else {
-					return fragment3;
-				}
 			}
-			
+			return fragment2;						
 		}
 
 		@Override
 		public int getCount() {
-			return 3;
+			return 2;
 		}
 	}
 
@@ -136,12 +123,22 @@ public class ListaEventosActivity extends ActionBarActivity implements TabListen
 
 	@Override
 	public void amigoFoiClicado(Amigo amigo) {
-		Intent it = new Intent(this, DetalheAmigoActivity.class);
+		Intent it = new Intent(this, ChatActivity.class);
 		it.putExtra("usuarioLogado", usuarioLogado);
 		it.putExtra("amigo", amigo);
-		it.putExtra("fotoUsu", fotoUsu);
-		startActivity(it);
-		
+		it.putExtra("fotoUsu", fotoUsu);	
+		startActivity(it);		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		//Toast.makeText(ListaEventosActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();
+	//	Intent it = new Intent(this, DetalheAmigoActivity.class);
+	//	it.putExtra("usuarioDestino", usuarioDestino);
+	//	it.putExtra("fotoOutroUsu", fotoOutroUsu);		
+	//	it.putExtra("amigo", amigo);		
+	//	startActivity(it);	
+		return true;		
 	}
 
 }

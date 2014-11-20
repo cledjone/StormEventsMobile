@@ -6,10 +6,10 @@ public class Config {
 	}
 	
 	public String  retornaFotoUsuario() {
-		return "http://192.168.56.102:8080/StormEvents/fotosUsuarios/";
+		return "http://192.168.56.102:8080/StormEvents/resources/images/fotosUsuarios/";
 	}
 	
 	public String  retornaFotoEvento() {
-		return "http://192.168.56.102:8080/StormEvents/fotosEventos/";
+		return "http://192.168.56.102:8080/StormEvents/resources/images/fotosEventos/";
 	}
 }

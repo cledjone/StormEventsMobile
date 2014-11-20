@@ -9,8 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.R.id;
-import com.example.stomeventsmobile.R.layout;
 import com.example.stomeventsmobile.adapters.AmigosAdapter;
 import com.example.stomeventsmobile.basicas.Amigo;
 import com.example.stomeventsmobile.utils.ClicouNoItem;
@@ -30,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ListAmigosFragment extends ListFragment {
 	
@@ -146,7 +143,7 @@ public class ListAmigosFragment extends ListFragment {
 				
 				for (int i = 0; i < jsonEntries.length(); i++) {	
 				
-				JSONObject jsonEntry = jsonEntries.getJSONObject(i);			
+				JSONObject jsonEntry = jsonEntries.getJSONObject(i);		
 						
 				Amigo amigo = new Amigo(
 					Integer.parseInt(jsonEntry.getString("ID_USU")),

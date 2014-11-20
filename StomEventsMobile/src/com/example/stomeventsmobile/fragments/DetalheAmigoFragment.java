@@ -2,9 +2,6 @@ package com.example.stomeventsmobile.fragments;
 
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.R.id;
-import com.example.stomeventsmobile.R.layout;
-import com.example.stomeventsmobile.R.menu;
 import com.example.stomeventsmobile.activitys.ChatActivity;
 import com.example.stomeventsmobile.basicas.Amigo;
 import com.example.stomeventsmobile.utils.Config;
@@ -23,9 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DetalheAmigoFragment extends Fragment {
-
 	// PEGA A STRING DO CAMINHO DO SERVIDOR 
-    Config fotoUsuario  = new Config();
+    Config fotoAmigo  = new Config();
 
 	Amigo amigo;
 	
@@ -79,13 +75,12 @@ public class DetalheAmigoFragment extends Fragment {
 		txtEditora.setText(amigo.editora);
 		txtDescricao.setText(amigo.descricao);
 		
-		usuarioLogado = amigo.usuarioLogado;
-		usuarioDestino = amigo.login;
+		usuarioLogado = amigo.usuarioLogado;		
 		fotoUsu = amigo.fotoUsuarioLogado;
 		fotoOutroUsu = amigo.capa;
 		
 		Picasso.with(this.getActivity())
-		.load(fotoUsuario.retornaFotoUsuario()+amigo.capa)
+		.load(fotoAmigo.retornaFotoUsuario()+amigo.capa)
 		.noFade()
 		.into(imgCapa);
 		
@@ -95,11 +90,7 @@ public class DetalheAmigoFragment extends Fragment {
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.detalhe, menu);
-		btnConversar = menu.findItem(R.id.action_favoritos);		
-		btnConversar.setIcon(android.R.drawable.ic_menu_call);	
-		
+		super.onCreateOptionsMenu(menu, inflater);				
 	}
 	
 

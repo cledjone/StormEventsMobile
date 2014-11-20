@@ -5,32 +5,21 @@ import com.example.stomeventsmobile.fragments.DetalheAmigoFragment;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.widget.Toast;
 
 
 public class DetalheAmigoActivity extends ActionBarActivity{
 
 	String usuarioLogado;
 	String usuarioDestino;
-	String fotoUsu;
+	String fotoUsu;	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Amigo amigo = (Amigo)getIntent().getSerializableExtra("amigo");
-		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
-		fotoUsu = getIntent().getStringExtra("fotoUsu");
-		
-
-		//JOGAR DADOS DO USUARIO LOGADO
-		amigo.usuarioLogado = usuarioLogado;
-		amigo.fotoUsuarioLogado = fotoUsu;
-		
-		DetalheAmigoFragment d = DetalheAmigoFragment.novaInstancia(amigo);
-		
-		
-		usuarioDestino = amigo.login;
+		Amigo amigo = (Amigo)getIntent().getSerializableExtra("amigo");		
+		DetalheAmigoFragment d = DetalheAmigoFragment.novaInstancia(amigo);		
 		
 		
 		getSupportFragmentManager()

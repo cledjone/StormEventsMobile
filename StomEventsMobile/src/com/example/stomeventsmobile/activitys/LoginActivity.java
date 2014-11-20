@@ -3,7 +3,6 @@ package com.example.stomeventsmobile.activitys;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import java.util.ArrayList;
@@ -16,9 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.R.id;
-import com.example.stomeventsmobile.R.layout;
-import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.utils.Config;
 import com.example.stomeventsmobile.utils.JSONParser;
 
@@ -42,6 +38,7 @@ public class LoginActivity extends Activity {
 	String usuSenha;	
 	String tipoConsulta;
 	String fotoUsu;
+	String id_usu;
 
 	// Progress Dialog
 	private ProgressDialog pDialog;
@@ -117,9 +114,11 @@ public class LoginActivity extends Activity {
 							JSONArray jsonEntries = json.getJSONArray("TAB_USU");							
 							JSONObject jsonEntry = jsonEntries.getJSONObject(0);			
 							fotoUsu = jsonEntry.getString("FOTO_USU");							
-							Intent i = new Intent(getApplicationContext(), ListaEventosActivity.class);
+							id_usu = jsonEntry.getString("ID_USU");
+							Intent i = new Intent(getApplicationContext(), HomeActivity.class);
 							i.putExtra("usuarioLogado", usuLogin.toString());
 							i.putExtra("fotoUsu", fotoUsu);
+							i.putExtra("id_usu", id_usu);
 							startActivity(i);							
 						}else{
 							Toast.makeText(LoginActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();							

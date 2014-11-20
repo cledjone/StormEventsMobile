@@ -4,7 +4,7 @@
     android:id="@+id/viewPager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="src.com.example.stormeventsmobile.ListaEventosActivity" 
+    tools:context="src.com.example.stormeventsmobile.HomeActivity" 
     tools:ignore="MergeRootFrame"/> 
     
       

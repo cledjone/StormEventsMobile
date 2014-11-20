@@ -9,14 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.R.id;
-import com.example.stomeventsmobile.R.layout;
 import com.example.stomeventsmobile.adapters.EventosAdapter;
 import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.utils.ClicouNoItem;
 import com.example.stomeventsmobile.utils.Config;
 import com.example.stomeventsmobile.utils.JSONParser;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -31,6 +30,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+
+@SuppressLint("ValidFragment")
 public class ListEventosFragment extends ListFragment {
 	
 	// Creating JSON Parser object
@@ -41,16 +42,29 @@ public class ListEventosFragment extends ListFragment {
 
 	List<Evento> eventos;
 	String tipoConsulta;
-	ReadEventosAsyncTask task;
+	String meusEventos;
+	String id_usuario;
+	ReadMeusEventosAsyncTask task;
 	ProgressBar progress;
 	TextView txtMensagem;
 	
+	
+	public ListEventosFragment() {
+		
+	}
+	
+	@SuppressLint("ValidFragment")
+	public ListEventosFragment(String id_usu) {
+		id_usuario = id_usu;
+	}
 	
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		tipoConsulta = "listar_eventos";
+		meusEventos = "meus_eventos";		
+		
 		setRetainInstance(true);	
 		if (eventos != null){
 			txtMensagem.setVisibility(View.GONE);
@@ -74,7 +88,7 @@ public class ListEventosFragment extends ListFragment {
 
 		if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
 
-			task = new ReadEventosAsyncTask();
+			task = new ReadMeusEventosAsyncTask();
 			task.execute();
 
 		} else {
@@ -115,7 +129,7 @@ public class ListEventosFragment extends ListFragment {
 		txtMensagem.setText("Carregando...");
 	}
 	
-	class ReadEventosAsyncTask extends AsyncTask<Void, Void, List<Evento>> {
+	class ReadMeusEventosAsyncTask extends AsyncTask<Void, Void, List<Evento>> {
 
 		@Override
 		protected void onPreExecute() {
@@ -130,24 +144,27 @@ public class ListEventosFragment extends ListFragment {
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("consulta", tipoConsulta));
+			params.add(new BasicNameValuePair("argumento", meusEventos));
+			params.add(new BasicNameValuePair("id_usuario", id_usuario));
 			// getting JSON string from URL
 			JSONObject json = jParser.makeHttpRequest(fachadaServidor.retornaFachada(), "GET", params);
 			
 			// CRIA UM LOG NO LOGCAT COM O RESULTADO DO JSON
-			Log.d("Todos Eventos: ", json.toString());
-			Log.d("params1: ", params.toString());
+			Log.d("Meus Eventos: ", json.toString());
+			Log.d("Parametros2: ", params.toString());
 			
 			
 			try{
-				JSONArray jsonEntries = json.getJSONArray("eventos");
-				for (int i = 0; i < jsonEntries.length(); i++) {		
-					
+				JSONArray jsonEntries = json.getJSONArray("eventos");				
+				
+				for (int i = 0; i < jsonEntries.length(); i++) {	
+				
 				JSONObject jsonEntry = jsonEntries.getJSONObject(i);			
 						
 				Evento evento = new Evento(
 					jsonEntry.getString("ID_EVE"),
-					jsonEntry.getString("Data_Evento"),
-					jsonEntry.getString("FOTO"),
+					jsonEntry.getString("DATA_EVE"),
+					jsonEntry.getString("FOTO_EVE"),
 					jsonEntry.getString("END_RUA"),
 					jsonEntry.getString("END_CIDADE"));			
 					eventos.add(evento);
@@ -167,7 +184,7 @@ public class ListEventosFragment extends ListFragment {
 				refreshList();
 				txtMensagem.setVisibility(View.GONE);
 			} else {
-				txtMensagem.setText("Deu erro eventos!");
+				txtMensagem.setText("Deu erro meus eventos!");
 			}
 			progress.setVisibility(View.GONE);
 		}

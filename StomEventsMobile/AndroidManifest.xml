@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.stomeventsmobile.activitys.ListaEventosActivity"
+            android:name="com.example.stomeventsmobile.activitys.HomeActivity"
             android:label="@string/title_activity_lista_eventos" >
         </activity>
         <activity

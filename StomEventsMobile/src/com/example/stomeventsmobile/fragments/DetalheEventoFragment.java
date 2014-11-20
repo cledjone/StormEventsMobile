@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class DetalheEventoFragment extends Fragment {
 
 	// PEGA A STRING DO CAMINHO DO SERVIDOR 
-    Config fotoUsuario  = new Config();
+    Config fotoEvento  = new Config();
 
 	Evento evento;
 	
@@ -37,7 +37,6 @@ public class DetalheEventoFragment extends Fragment {
 	TextView txtDescricao;	
 	MenuItem btnConversar;	
 	
-	String tablet;
 	
 	public static DetalheEventoFragment novaInstancia(Evento evento){
 		Bundle args = new Bundle();
@@ -81,7 +80,7 @@ public class DetalheEventoFragment extends Fragment {
 		fotoOutroUsu = evento.capa;
 		
 		Picasso.with(this.getActivity())
-		.load(fotoUsuario.retornaFotoEvento()+evento.capa)
+		.load(fotoEvento.retornaFotoEvento()+evento.capa)
 		.noFade()
 		.into(imgCapa);
 		
@@ -91,10 +90,7 @@ public class DetalheEventoFragment extends Fragment {
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.detalhe, menu);
-		btnConversar = menu.findItem(R.id.action_favoritos);		
-		btnConversar.setIcon(android.R.drawable.ic_menu_call);	
+		super.onCreateOptionsMenu(menu, inflater);				
 		
 	}
 	

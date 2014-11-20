@@ -1,12 +1,7 @@
 package com.example.stomeventsmobile.activitys;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.net.Socket;
-import java.net.UnknownHostException;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -19,22 +14,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.R.id;
-import com.example.stomeventsmobile.R.layout;
+
+
 import com.example.stomeventsmobile.adapters.ChatAdapter;
 import com.example.stomeventsmobile.basicas.Amigo;
 import com.example.stomeventsmobile.basicas.Chat;
 import com.example.stomeventsmobile.utils.Config;
 import com.example.stomeventsmobile.utils.JSONParser;
 
-import android.app.Activity;
+
 import android.app.ListActivity;
-import android.app.ProgressDialog;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,9 +38,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
 public class ChatActivity extends ListActivity {
 	
-	
+	Amigo amigo;
 	List<Chat> mensagens;
 	ChatAdapter adapter;
 	Timer myTimer = new Timer();	
@@ -73,7 +70,7 @@ public class ChatActivity extends ListActivity {
 	String fotoUsu;
 	String fotoOutroUsu;
 	String mensagemEscrita;
-	String mensagemRecebida;
+	String mensagemRecebida;	
 	
 	
 	 private void UpdateGUI() {
@@ -96,6 +93,7 @@ public class ChatActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat);		
 		
+		amigo = (Amigo)getIntent().getSerializableExtra("amigo");		
 		mensagens = new ArrayList<Chat>();
 				
 		adapter = new ChatAdapter(this, mensagens);
@@ -105,7 +103,11 @@ public class ChatActivity extends ListActivity {
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
 		usuarioDestino = getIntent().getStringExtra("usuarioDestino");		
 		fotoUsu = getIntent().getStringExtra("fotoUsu");
-		fotoOutroUsu = getIntent().getStringExtra("fotoOutroUsu");
+		fotoOutroUsu = getIntent().getStringExtra("fotoOutroUsu");			
+		
+		Toast.makeText(ChatActivity.this,fotoOutroUsu,Toast.LENGTH_LONG).show();
+		
+		
 		msgView = (ListView) findViewById(android.R.id.list);
 		btnEnviar = (Button) findViewById(R.id.btn_enviar);	
 		  
@@ -237,6 +239,16 @@ public class ChatActivity extends ListActivity {
 		protected void onPostExecute(String file_url) {			
 			
 		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {		
+		Intent it = new Intent(this, DetalheAmigoActivity.class);
+		it.putExtra("usuarioDestino", usuarioDestino);
+		it.putExtra("fotoOutroUsu", fotoOutroUsu);		
+		it.putExtra("amigo", amigo);		
+		startActivity(it);	
+		return true;		
 	}
 
 }
