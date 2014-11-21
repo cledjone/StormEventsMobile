@@ -20,6 +20,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -32,18 +35,21 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 	ListEventosFragment fragment1;
 	ListAmigosFragment fragment2;
 	ViewPager pager;
+	int paginaSelecionada = 0;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.home_activity);
+		
 				
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
 		fotoUsu = getIntent().getStringExtra("fotoUsu");
 		id_usu = getIntent().getStringExtra("id_usu");			
 		
 		fragment1 = new ListEventosFragment(id_usu);
-		fragment2 = new ListAmigosFragment();
+		fragment2 = new ListAmigosFragment(id_usu);
 				
 		final ActionBar actionBar = getSupportActionBar();
 		
@@ -74,13 +80,14 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		pager.setCurrentItem(tab.getPosition());
-		
+		pager.setCurrentItem(tab.getPosition());	
+		paginaSelecionada = tab.getPosition();				
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		pager.setCurrentItem(tab.getPosition());
+		pager.setCurrentItem(tab.getPosition());	
+		paginaSelecionada = tab.getPosition();		
 	}
 	
 	@Override
@@ -116,6 +123,7 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 		Intent it = new Intent(this, DetalheEventoActivity.class);
 		it.putExtra("usuarioLogado", usuarioLogado);
 		it.putExtra("evento", evento);
+		it.putExtra("id_usu", id_usu);
 		it.putExtra("fotoUsu", fotoUsu);
 		startActivity(it);		
 	}
@@ -131,14 +139,14 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		//Toast.makeText(ListaEventosActivity.this,"Usuario Não Encontrado!",Toast.LENGTH_LONG).show();
-	//	Intent it = new Intent(this, DetalheAmigoActivity.class);
-	//	it.putExtra("usuarioDestino", usuarioDestino);
-	//	it.putExtra("fotoOutroUsu", fotoOutroUsu);		
-	//	it.putExtra("amigo", amigo);		
-	//	startActivity(it);	
+	public boolean onOptionsItemSelected(MenuItem item) {		
+		Intent i = new Intent(this, TodosEventosActivity.class);
+		i.putExtra("usuarioLogado", usuarioLogado);		
+		i.putExtra("id_usu", id_usu);
+		i.putExtra("eventoOuUsuario", String.valueOf(paginaSelecionada));
+		i.putExtra("fotoUsu", fotoUsu);
+		startActivity(i);		
 		return true;		
-	}
-
+	}	
+	
 }

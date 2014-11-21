@@ -24,6 +24,9 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -43,10 +46,11 @@ public class ListEventosFragment extends ListFragment {
 	List<Evento> eventos;
 	String tipoConsulta;
 	String meusEventos;
-	String id_usuario;
+	String id_usuario = "todos";
 	ReadMeusEventosAsyncTask task;
 	ProgressBar progress;
 	TextView txtMensagem;
+	MenuItem acrescentarEvento;
 	
 	
 	public ListEventosFragment() {
@@ -62,6 +66,9 @@ public class ListEventosFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		if (!id_usuario.equals("todos")){
+			setHasOptionsMenu(true);
+		}
 		tipoConsulta = "listar_eventos";
 		meusEventos = "meus_eventos";		
 		
@@ -97,6 +104,16 @@ public class ListEventosFragment extends ListFragment {
 			txtMensagem.setText("Sem conex‹o com a Internet");
 		}
 	}
+	
+	
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.detalhe, menu);			
+		acrescentarEvento = menu.findItem(R.id.action_btn_add);		
+	}
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -144,8 +161,11 @@ public class ListEventosFragment extends ListFragment {
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("consulta", tipoConsulta));
-			params.add(new BasicNameValuePair("argumento", meusEventos));
-			params.add(new BasicNameValuePair("id_usuario", id_usuario));
+			if (!id_usuario.equals("todos")){
+				params.add(new BasicNameValuePair("argumento", meusEventos));
+				params.add(new BasicNameValuePair("id_usuario", id_usuario));
+			}
+			
 			// getting JSON string from URL
 			JSONObject json = jParser.makeHttpRequest(fachadaServidor.retornaFachada(), "GET", params);
 			

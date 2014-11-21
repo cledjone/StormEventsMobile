@@ -35,6 +35,7 @@ public class DetalheAmigoFragment extends Fragment {
 	TextView txtEditora;
 	TextView txtDescricao;	
 	MenuItem btnConversar;	
+	MenuItem acrescentarEvento;
 	
 	String tablet;
 	
@@ -90,7 +91,9 @@ public class DetalheAmigoFragment extends Fragment {
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);				
+		super.onCreateOptionsMenu(menu, inflater);	
+		inflater.inflate(R.menu.detalhe, menu);	
+		
 	}
 	
 
@@ -103,27 +106,7 @@ public class DetalheAmigoFragment extends Fragment {
 		i.putExtra("fotoUsu", fotoUsu);
 		i.putExtra("fotoOutroUsu", fotoOutroUsu);
 		startActivity(i);		
-		
-	//	Intent i = new Intent(this, ChatActivity.class);
-	//	startActivity(i);			
-		
-	/*		if (getActivity() instanceof AmigoNosFavoritos){
-				((AmigoNosFavoritos)getActivity()).amigoAdicionadoAoFavorito(amigo);
-			}
-			
-		}		
-		
-		Intent it = this.getActivity().getIntent();
-		tablet = it.getStringExtra("tablet");		
-		if (tablet!=null){
-			this.getActivity().finish();			
-		}else {
-			btnSalvarExcluir.setVisible(false);			
-		}
-		
-		
-		return super.onOptionsItemSelected(item);
-		*/
+	
 		return true;
 	}
 	

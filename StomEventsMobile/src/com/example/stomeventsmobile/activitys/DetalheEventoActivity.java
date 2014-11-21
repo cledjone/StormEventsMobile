@@ -24,6 +24,7 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 	String usuarioLogado;
 	String usuarioDestino;
 	String fotoUsu;
+	String id_usu;
 	DetalheEventoFragment fragment1;
 	ListAmigosFragment fragment2;
 	ViewPager pager;
@@ -35,7 +36,8 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 		
 		Evento evento = (Evento)getIntent().getSerializableExtra("evento");		
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
-		fotoUsu = getIntent().getStringExtra("fotoUsu");		
+		fotoUsu = getIntent().getStringExtra("fotoUsu");	
+		id_usu = getIntent().getStringExtra("id_usu");
 
 		//JOGAR DADOS DO USUARIO LOGADO
 		evento.usuarioLogado = usuarioLogado;

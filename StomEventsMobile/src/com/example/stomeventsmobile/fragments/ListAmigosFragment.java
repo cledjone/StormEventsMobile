@@ -15,6 +15,7 @@ import com.example.stomeventsmobile.utils.ClicouNoItem;
 import com.example.stomeventsmobile.utils.Config;
 import com.example.stomeventsmobile.utils.JSONParser;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -23,12 +24,16 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+@SuppressLint("ValidFragment")
 public class ListAmigosFragment extends ListFragment {
 	
 	// Creating JSON Parser object
@@ -42,13 +47,29 @@ public class ListAmigosFragment extends ListFragment {
 	ReadAmigosAsyncTask task;
 	ProgressBar progress;
 	TextView txtMensagem;
+	String meusAmigos;
+	String id_usuario = "todos";
+	MenuItem acrescentarAmigo;
 	
 	
+	public ListAmigosFragment() {	
+		
+	}	
+	
+	@SuppressLint("ValidFragment")
+	public ListAmigosFragment(String id_usu) {
+		id_usuario = id_usu;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		setHasOptionsMenu(true);
+		
 		tipoConsulta = "listar_usuarios";
+		meusAmigos = "meus_amigos";	
+		
+		
 		setRetainInstance(true);	
 		if (amigos != null){
 			txtMensagem.setVisibility(View.GONE);
@@ -130,6 +151,12 @@ public class ListAmigosFragment extends ListFragment {
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("consulta", tipoConsulta));
+						
+			if (!id_usuario.equals("todos")){
+				params.add(new BasicNameValuePair("argumento", meusAmigos));
+				params.add(new BasicNameValuePair("id_usuario", id_usuario));
+			}
+			
 			// getting JSON string from URL
 			JSONObject json = jParser.makeHttpRequest(fachadaServidor.retornaFachada(), "GET", params);
 			
@@ -174,5 +201,13 @@ public class ListAmigosFragment extends ListFragment {
 			}
 			progress.setVisibility(View.GONE);
 		}
+	}
+	
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.detalhe, menu);			
+		acrescentarAmigo = menu.findItem(R.id.action_btn_add);		
 	}
 }
