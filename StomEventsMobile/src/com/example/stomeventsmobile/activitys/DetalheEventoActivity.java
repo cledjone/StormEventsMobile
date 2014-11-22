@@ -1,12 +1,24 @@
 package com.example.stomeventsmobile.activitys;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.example.stomeventsmobile.R;
 import com.example.stomeventsmobile.basicas.Amigo;
 import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.fragments.DetalheEventoFragment;
 import com.example.stomeventsmobile.fragments.ListAmigosFragment;
 import com.example.stomeventsmobile.utils.ClicouNoItem;
+import com.example.stomeventsmobile.utils.Config;
+import com.example.stomeventsmobile.utils.JSONParser;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +30,8 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar.TabListener;
+import android.util.Log;
+import android.widget.Toast;
 
 public class DetalheEventoActivity extends ActionBarActivity implements TabListener, ClicouNoItem{
 
@@ -28,13 +42,28 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 	DetalheEventoFragment fragment1;
 	ListAmigosFragment fragment2;
 	ViewPager pager;
+
+	// PEGA A STRING DO CAMINHO DO SERVIDOR 
+	Config fachadaServidor  = new Config();	
+
+	
+	// Progress Dialog
+	private ProgressDialog pDialog;
+
+	// JSON parser class
+	JSONParser jsonParser = new JSONParser();
+	
+	Evento evento;
+	
+	// JSON Node names
+	private static final String TAG_SUCCESS = "success";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_activity);
 		
-		Evento evento = (Evento)getIntent().getSerializableExtra("evento");		
+		evento = (Evento)getIntent().getSerializableExtra("evento");		
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
 		fotoUsu = getIntent().getStringExtra("fotoUsu");	
 		id_usu = getIntent().getStringExtra("id_usu");
@@ -70,7 +99,6 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 		
 		actionBar.addTab(aba1);
 		actionBar.addTab(aba2);
-
 	 			
 	}
 	
@@ -97,13 +125,12 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 	
 	@Override
 	public void eventoFoiClicado(Evento evento) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void amigoFoiClicado(Amigo amigo) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -120,8 +147,68 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
 		
+		
+	}
+
+	@Override
+	public void ParticipouEvento() {
+		new ParticiparEvento().execute();		
+		
+	}
+	
+	class ParticiparEvento extends AsyncTask<String, String, String> {	
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pDialog = new ProgressDialog(DetalheEventoActivity.this);
+			pDialog.setMessage("Verificando,Por Favor Aguarde...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(true);
+			pDialog.show();
+		}
+
+		protected String doInBackground(String... params) {	
+			// ABRINDO THREAD NO BACKGROUND
+			runOnUiThread(new Runnable() {
+				public void run() {
+					int success;
+					try {
+						// INSERINDO PARAMETROS
+						List<NameValuePair> params = new ArrayList<NameValuePair>();
+						params.add(new BasicNameValuePair("id_usuario", id_usu));
+						params.add(new BasicNameValuePair("id_evento", evento.titulo));
+						params.add(new BasicNameValuePair("consulta", "participar"));
+
+						// PEGANDO AS INFORMAÇÕES DO WEB SERVICE
+						JSONObject json = jsonParser.makeHttpRequest(
+								fachadaServidor.retornaFachada(), "GET", params);						
+
+						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU
+						Log.d("participar: ", json.toString());
+						Log.d("paramentros9: ", params.toString());
+						//Toast.makeText(LoginActivity.this,json.toString(),Toast.LENGTH_LONG).show();
+						
+						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
+						success = json.getInt(TAG_SUCCESS);
+						if (success == 1) {							
+							Toast.makeText(DetalheEventoActivity.this,"Participando Com Sucesso!",Toast.LENGTH_LONG).show();																		
+						}else{
+							Toast.makeText(DetalheEventoActivity.this,"Erro ao Participar!",Toast.LENGTH_LONG).show();							
+						}
+						
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+
+			return null;
+		}
+
+		protected void onPostExecute(String file_url) {			
+			pDialog.dismiss();
+		}
 	}
 	
 	

@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.R.id;
-import com.example.stomeventsmobile.R.layout;
 import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.utils.Config;
 import com.squareup.picasso.Picasso;

@@ -28,7 +28,7 @@ public class TodosEventosActivity extends ActionBarActivity implements ClicouNoI
 		
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
 		fotoUsu = getIntent().getStringExtra("fotoUsu");
-		id_usu = getIntent().getStringExtra("idi_usu");
+		id_usu = getIntent().getStringExtra("id_usu");
 		eventoOuUsuario = getIntent().getStringExtra("eventoOuUsuario");
 		
 		if(eventoOuUsuario.equals("0")){
@@ -72,6 +72,14 @@ public class TodosEventosActivity extends ActionBarActivity implements ClicouNoI
 		it.putExtra("amigo", amigo);
 		it.putExtra("fotoUsu", fotoUsu);	
 		startActivity(it);		
+		
+	}
+
+
+
+	@Override
+	public void ParticipouEvento() {
+		// TODO Auto-generated method stub
 		
 	}
 		

@@ -1,11 +1,12 @@
 package com.example.stomeventsmobile.fragments;
 
-
 import com.example.stomeventsmobile.R;
 import com.example.stomeventsmobile.activitys.ChatActivity;
 import com.example.stomeventsmobile.basicas.Evento;
+import com.example.stomeventsmobile.utils.ClicouNoItem;
 import com.example.stomeventsmobile.utils.Config;
 import com.squareup.picasso.Picasso;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +17,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 public class DetalheEventoFragment extends Fragment {
 
@@ -36,6 +39,8 @@ public class DetalheEventoFragment extends Fragment {
 	TextView txtEditora;
 	TextView txtDescricao;	
 	MenuItem btnConversar;	
+	Button btnParticipar;
+	String tipoConsulta;
 	
 	
 	public static DetalheEventoFragment novaInstancia(Evento evento){
@@ -68,6 +73,7 @@ public class DetalheEventoFragment extends Fragment {
 		txtAutor = (TextView)layout.findViewById(R.id.txtAutor);
 		txtEditora = (TextView)layout.findViewById(R.id.txtEditora);	
 		txtDescricao = (TextView)layout.findViewById(R.id.txtDescricao);
+		btnParticipar = (Button)layout.findViewById(R.id.btn_participar);
 		
 		evento = (Evento)getArguments().getSerializable("evento");
 		txtTitulo.setText(evento.titulo);
@@ -84,9 +90,23 @@ public class DetalheEventoFragment extends Fragment {
 		.noFade()
 		.into(imgCapa);
 		
+
+		
+		btnParticipar.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View view) {
+				if (getActivity() instanceof ClicouNoItem){
+					((ClicouNoItem)getActivity()).ParticipouEvento();
+				}
+							
+			}
+		});
+		
 		
 		return layout;
-	}
+	}	
+	
+	
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -104,33 +124,14 @@ public class DetalheEventoFragment extends Fragment {
 		i.putExtra("fotoUsu", fotoUsu);
 		i.putExtra("fotoOutroUsu", fotoOutroUsu);
 		startActivity(i);		
-		
-	//	Intent i = new Intent(this, ChatActivity.class);
-	//	startActivity(i);			
-		
-	/*		if (getActivity() instanceof EventoNosFavoritos){
-				((EventoNosFavoritos)getActivity()).eventoAdicionadoAoFavorito(evento);
-			}
-			
-		}		
-		
-		Intent it = this.getActivity().getIntent();
-		tablet = it.getStringExtra("tablet");		
-		if (tablet!=null){
-			this.getActivity().finish();			
-		}else {
-			btnSalvarExcluir.setVisible(false);			
-		}
-		
-		
-		return super.onOptionsItemSelected(item);
-		*/
+
 		return true;
 	}
 	
 	interface EventoNosFavoritos {
 		void eventoAdicionadoAoFavorito(Evento evento);
 	}
+		
 	
 }
 

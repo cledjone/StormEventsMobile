@@ -8,17 +8,27 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
 	<RelativeLayout
-	    android:layout_width="match_parent"
+	    android:layout_width="281dp"
 	    android:layout_height="wrap_content"
 	    android:gravity="center_horizontal"
-	    android:orientation="vertical">	    
+	    android:orientation="vertical" >
+	    
+         <Button
+             android:id="@+id/btn_participar"
+             android:layout_width="250dp"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:text="Participar" 
+             android:textSize="15sp"
+             android:layout_alignParentTop="true"	         
+	         android:layout_centerInParent="true" 
+     		 android:textStyle="bold"/>	    
 	    
 	    <ImageView
 	        android:id="@+id/imageViewUsu"
 	        android:layout_width="220dp"
         	android:layout_height="220dp"
-        	android:layout_alignParentTop="true"	         
-	        android:layout_centerInParent="true"
+        	android:layout_below="@+id/btn_participar"
 	        android:scaleType="centerInside"
 	        android:src="@drawable/ic_launcher" />
 	    

@@ -20,11 +20,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
 public class HomeActivity extends ActionBarActivity implements TabListener, ClicouNoItem{
@@ -92,7 +88,7 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 	
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
@@ -147,6 +143,13 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 		i.putExtra("fotoUsu", fotoUsu);
 		startActivity(i);		
 		return true;		
+	}
+
+
+	@Override
+	public void ParticipouEvento() {
+		// TODO Auto-generated method stub
+		
 	}	
 	
 }
