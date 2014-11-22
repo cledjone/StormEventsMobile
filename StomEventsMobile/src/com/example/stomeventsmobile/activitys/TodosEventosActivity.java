@@ -33,7 +33,7 @@ public class TodosEventosActivity extends ActionBarActivity implements ClicouNoI
 		
 		if(eventoOuUsuario.equals("0")){
 			this.setTitle("Participar de um Evento");
-			fragmentEventos = new ListEventosFragment();			
+			fragmentEventos = new ListEventosFragment(id_usu, false);			
 			getSupportFragmentManager()
 				.beginTransaction()
 				.replace(android.R.id.content, fragmentEventos)

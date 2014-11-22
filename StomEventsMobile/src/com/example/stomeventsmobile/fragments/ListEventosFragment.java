@@ -46,6 +46,7 @@ public class ListEventosFragment extends ListFragment {
 	List<Evento> eventos;
 	String tipoConsulta;
 	String meusEventos;
+	Boolean participa;
 	String id_usuario = "todos";
 	ReadMeusEventosAsyncTask task;
 	ProgressBar progress;
@@ -58,15 +59,16 @@ public class ListEventosFragment extends ListFragment {
 	}
 	
 	@SuppressLint("ValidFragment")
-	public ListEventosFragment(String id_usu) {
+	public ListEventosFragment(String id_usu, Boolean participando) {
 		id_usuario = id_usu;
+		participa = participando;
 	}
 	
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		if (!id_usuario.equals("todos")){
+		if (participa){
 			setHasOptionsMenu(true);
 		}
 		tipoConsulta = "listar_eventos";
@@ -164,9 +166,9 @@ public class ListEventosFragment extends ListFragment {
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("consulta", tipoConsulta));
-			if (!id_usuario.equals("todos")){
-				params.add(new BasicNameValuePair("argumento", meusEventos));
-				params.add(new BasicNameValuePair("id_usuario", id_usuario));
+			params.add(new BasicNameValuePair("id_usuario", id_usuario));
+			if (participa){
+				params.add(new BasicNameValuePair("argumento", meusEventos));				
 			}
 			
 			// getting JSON string from URL

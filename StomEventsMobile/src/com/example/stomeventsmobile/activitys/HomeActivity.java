@@ -44,7 +44,7 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 		fotoUsu = getIntent().getStringExtra("fotoUsu");
 		id_usu = getIntent().getStringExtra("id_usu");			
 		
-		fragment1 = new ListEventosFragment(id_usu);
+		fragment1 = new ListEventosFragment(id_usu, true);
 		fragment2 = new ListAmigosFragment(id_usu);
 				
 		final ActionBar actionBar = getSupportActionBar();
