@@ -2,6 +2,7 @@ package com.example.stomeventsmobile.fragments;
 
 import com.example.stomeventsmobile.R;
 import com.example.stomeventsmobile.activitys.ChatActivity;
+import com.example.stomeventsmobile.activitys.ChatEventoActivity;
 import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.utils.ClicouNoItem;
 import com.example.stomeventsmobile.utils.Config;
@@ -124,22 +125,13 @@ public class DetalheEventoFragment extends Fragment {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent i = new Intent(this.getActivity(), ChatActivity.class);
-		i.putExtra("usuarioLogado", "1");
-		i.putExtra("usuarioDestino", usuarioDestino);
+		Intent i = new Intent(this.getActivity(), ChatEventoActivity.class);
+		i.putExtra("usuarioLogado", usuarioLogado);		
+		i.putExtra("evento", evento);
 		i.putExtra("fotoUsu", fotoUsu);
-		i.putExtra("fotoOutroUsu", fotoOutroUsu);				
-
-		/*
-		
-		it.putExtra("usuarioLogado", usuarioLogado);
-		it.putExtra("amigo", amigo);
-		it.putExtra("id_usu", id_usu);
-		it.putExtra("fotoUsu", fotoUsu);
-		it.putExtra("amizade", "Desfazer Amizade");
+		i.putExtra("fotoOutroUsu", fotoOutroUsu);		
+		i.putExtra("fotoUsu", fotoUsu);		
 		startActivity(i);
-		
-		*/
 		
 		return true;
 	}
