@@ -33,6 +33,7 @@ public class DetalheEventoFragment extends Fragment {
 	String fotoOutroUsu;
 	String usuarioLogado;
 	String usuarioDestino;
+	String sairPart;
 	ImageView imgCapa;
 	TextView txtTitulo;	
 	TextView txtAutor;
@@ -43,10 +44,10 @@ public class DetalheEventoFragment extends Fragment {
 	String tipoConsulta;
 	
 	
-	public static DetalheEventoFragment novaInstancia(Evento evento){
+	public static DetalheEventoFragment novaInstancia(Evento evento, String sairParticipar){
 		Bundle args = new Bundle();
 		args.putSerializable("evento", evento);
-		
+		args.putSerializable("sairParticipar", sairParticipar);		
 		DetalheEventoFragment f = new DetalheEventoFragment();
 		f.setArguments(args);
 		return f;
@@ -76,6 +77,8 @@ public class DetalheEventoFragment extends Fragment {
 		btnParticipar = (Button)layout.findViewById(R.id.btn_participar);
 		
 		evento = (Evento)getArguments().getSerializable("evento");
+		sairPart = (String)getArguments().getSerializable("sairParticipar");
+		btnParticipar.setText(sairPart);
 		txtTitulo.setText(evento.titulo);
 		txtAutor.setText(evento.autor);
 		txtEditora.setText(evento.editora);
@@ -110,21 +113,34 @@ public class DetalheEventoFragment extends Fragment {
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);				
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.detalhe, menu);
+		btnConversar = menu.findItem(R.id.action_btn_add);		
+	    btnConversar.setIcon(android.R.drawable.stat_notify_chat);
 		
-	}
+	}	
 	
 
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent i = new Intent(this.getActivity(), ChatActivity.class);
-		i.putExtra("usuarioLogado", usuarioLogado);
+		i.putExtra("usuarioLogado", "1");
 		i.putExtra("usuarioDestino", usuarioDestino);
 		i.putExtra("fotoUsu", fotoUsu);
-		i.putExtra("fotoOutroUsu", fotoOutroUsu);
-		startActivity(i);		
+		i.putExtra("fotoOutroUsu", fotoOutroUsu);				
 
+		/*
+		
+		it.putExtra("usuarioLogado", usuarioLogado);
+		it.putExtra("amigo", amigo);
+		it.putExtra("id_usu", id_usu);
+		it.putExtra("fotoUsu", fotoUsu);
+		it.putExtra("amizade", "Desfazer Amizade");
+		startActivity(i);
+		
+		*/
+		
 		return true;
 	}
 	

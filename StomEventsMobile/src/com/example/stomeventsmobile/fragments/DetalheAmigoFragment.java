@@ -4,6 +4,8 @@ package com.example.stomeventsmobile.fragments;
 import com.example.stomeventsmobile.R;
 import com.example.stomeventsmobile.activitys.ChatActivity;
 import com.example.stomeventsmobile.basicas.Amigo;
+import com.example.stomeventsmobile.basicas.Evento;
+import com.example.stomeventsmobile.utils.ClicouNoItem;
 import com.example.stomeventsmobile.utils.Config;
 import com.squareup.picasso.Picasso;
 
@@ -16,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,13 +39,15 @@ public class DetalheAmigoFragment extends Fragment {
 	TextView txtDescricao;	
 	MenuItem btnConversar;	
 	MenuItem acrescentarEvento;
+	String amizadeAdd;
+	Button btnAmizade;
 	
 	String tablet;
 	
-	public static DetalheAmigoFragment novaInstancia(Amigo amigo){
+	public static DetalheAmigoFragment novaInstancia(Amigo amigo, String amizade){
 		Bundle args = new Bundle();
 		args.putSerializable("amigo", amigo);
-		
+		args.putSerializable("amizadeAdd", amizade);
 		DetalheAmigoFragment f = new DetalheAmigoFragment();
 		f.setArguments(args);
 		return f;
@@ -70,6 +75,12 @@ public class DetalheAmigoFragment extends Fragment {
 		txtEditora = (TextView)layout.findViewById(R.id.txtEditora);	
 		txtDescricao = (TextView)layout.findViewById(R.id.txtDescricao);
 		
+		
+		btnAmizade = (Button)layout.findViewById(R.id.btn_participar);		
+		
+		amizadeAdd = (String)getArguments().getSerializable("amizadeAdd");
+		btnAmizade.setText(amizadeAdd);
+		
 		amigo = (Amigo)getArguments().getSerializable("amigo");
 		txtTitulo.setText(amigo.titulo);
 		txtAutor.setText(amigo.autor);
@@ -85,6 +96,16 @@ public class DetalheAmigoFragment extends Fragment {
 		.noFade()
 		.into(imgCapa);
 		
+		
+		btnAmizade.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View view) {
+				if (getActivity() instanceof ClicouNoItem){
+					((ClicouNoItem)getActivity()).ParticipouEvento();
+				}
+							
+			}
+		});
 		
 		return layout;
 	}

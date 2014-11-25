@@ -45,7 +45,7 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 		id_usu = getIntent().getStringExtra("id_usu");			
 		
 		fragment1 = new ListEventosFragment(id_usu, true);
-		fragment2 = new ListAmigosFragment(id_usu);
+		fragment2 = new ListAmigosFragment(id_usu, true);
 				
 		final ActionBar actionBar = getSupportActionBar();
 		
@@ -120,8 +120,9 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 		it.putExtra("usuarioLogado", usuarioLogado);
 		it.putExtra("evento", evento);
 		it.putExtra("id_usu", id_usu);
+		it.putExtra("sairParticipar", "Sair");
 		it.putExtra("fotoUsu", fotoUsu);
-		startActivity(it);		
+		startActivityForResult(it, 0);				
 	}
 
 
@@ -130,26 +131,37 @@ public class HomeActivity extends ActionBarActivity implements TabListener, Clic
 		Intent it = new Intent(this, ChatActivity.class);
 		it.putExtra("usuarioLogado", usuarioLogado);
 		it.putExtra("amigo", amigo);
-		it.putExtra("fotoUsu", fotoUsu);	
-		startActivity(it);		
+		it.putExtra("id_usu", id_usu);
+		it.putExtra("fotoUsu", fotoUsu);
+		it.putExtra("amizade", "Desfazer Amizade");
+		startActivityForResult(it, 0);		
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {		
-		Intent i = new Intent(this, TodosEventosActivity.class);
+		Intent i = new Intent(this, TodosEventosAmigosActivity.class);
 		i.putExtra("usuarioLogado", usuarioLogado);		
 		i.putExtra("id_usu", id_usu);
 		i.putExtra("eventoOuUsuario", String.valueOf(paginaSelecionada));
 		i.putExtra("fotoUsu", fotoUsu);
-		startActivity(i);		
+		startActivityForResult(i, 0);		
 		return true;		
 	}
 
 
 	@Override
 	public void ParticipouEvento() {
-		// TODO Auto-generated method stub
+		
 		
 	}	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (resultCode == RESULT_OK && requestCode == 0){
+			finish();
+		}
+	}
 	
 }

@@ -18,6 +18,7 @@ import com.example.stomeventsmobile.utils.Config;
 import com.example.stomeventsmobile.utils.JSONParser;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,10 +38,11 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 
 	String usuarioLogado;
 	String usuarioDestino;
+	String sairParticipar;
 	String fotoUsu;
-	String id_usu;
+	String id_usu;	
 	DetalheEventoFragment fragment1;
-	ListAmigosFragment fragment2;
+	ListAmigosFragment fragment2;	
 	ViewPager pager;
 
 	// PEGA A STRING DO CAMINHO DO SERVIDOR 
@@ -65,6 +67,7 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 		
 		evento = (Evento)getIntent().getSerializableExtra("evento");		
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
+		sairParticipar = getIntent().getStringExtra("sairParticipar");
 		fotoUsu = getIntent().getStringExtra("fotoUsu");	
 		id_usu = getIntent().getStringExtra("id_usu");
 
@@ -72,8 +75,8 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 		evento.usuarioLogado = usuarioLogado;
 		evento.fotoUsuarioLogado = fotoUsu;		
 		
-		fragment1 = DetalheEventoFragment.novaInstancia(evento);		
-		fragment2 = new ListAmigosFragment();
+		fragment1 = DetalheEventoFragment.novaInstancia(evento, sairParticipar);		
+		fragment2 = new ListAmigosFragment(id_usu, true);
 		
 		final ActionBar actionBar = getSupportActionBar();
 		
@@ -153,7 +156,10 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 
 	@Override
 	public void ParticipouEvento() {
-		new ParticiparEvento().execute();		
+		new ParticiparEvento().execute();	
+		Intent it = new Intent();		
+		setResult(RESULT_OK, it);
+		finish();
 		
 	}
 	
@@ -191,8 +197,14 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 						
 						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
 						success = json.getInt(TAG_SUCCESS);
-						if (success == 1) {							
-							Toast.makeText(DetalheEventoActivity.this,"Participando Com Sucesso!",Toast.LENGTH_LONG).show();																		
+						if (success == 1) {
+							String mensagemResultado;
+							if (sairParticipar.equals("Sair")){								
+								mensagemResultado = "Você saiu deste Evento!";
+							}else {
+								mensagemResultado = "Participando Com Sucesso!";
+							}
+							Toast.makeText(DetalheEventoActivity.this,mensagemResultado,Toast.LENGTH_LONG).show();																		
 						}else{
 							Toast.makeText(DetalheEventoActivity.this,"Erro ao Participar!",Toast.LENGTH_LONG).show();							
 						}
@@ -210,6 +222,7 @@ public class DetalheEventoActivity extends ActionBarActivity implements TabListe
 			pDialog.dismiss();
 		}
 	}
+		
 	
 	
 }

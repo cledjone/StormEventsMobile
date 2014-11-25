@@ -48,6 +48,7 @@ public class ListAmigosFragment extends ListFragment {
 	ProgressBar progress;
 	TextView txtMensagem;
 	String meusAmigos;
+	Boolean amizade;
 	String id_usuario = "todos";
 	MenuItem acrescentarAmigo;
 	
@@ -57,15 +58,17 @@ public class ListAmigosFragment extends ListFragment {
 	}	
 	
 	@SuppressLint("ValidFragment")
-	public ListAmigosFragment(String id_usu) {
+	public ListAmigosFragment(String id_usu, Boolean amigos) {
 		id_usuario = id_usu;
+		amizade = amigos;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		setHasOptionsMenu(true);
-		
+		if (amizade){
+			setHasOptionsMenu(true);
+		}		
 		tipoConsulta = "listar_usuarios";
 		meusAmigos = "meus_amigos";	
 		
@@ -151,10 +154,11 @@ public class ListAmigosFragment extends ListFragment {
 			
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("consulta", tipoConsulta));
+			params.add(new BasicNameValuePair("id_usuario", id_usuario));
 						
-			if (!id_usuario.equals("todos")){
+			if (amizade){				
 				params.add(new BasicNameValuePair("argumento", meusAmigos));
-				params.add(new BasicNameValuePair("id_usuario", id_usuario));
+				
 			}
 			
 			// getting JSON string from URL

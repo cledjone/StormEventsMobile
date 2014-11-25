@@ -71,8 +71,9 @@ public class ChatActivity extends ListActivity {
 	String fotoOutroUsu;
 	String mensagemEscrita;
 	String mensagemRecebida;	
-	
-	
+	String id_usu;
+	String amizade;
+			
 	 private void UpdateGUI() {
 	      i++;
 	      handler.post(myRunnable);
@@ -103,11 +104,10 @@ public class ChatActivity extends ListActivity {
 		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
 		usuarioDestino = getIntent().getStringExtra("usuarioDestino");		
 		fotoUsu = getIntent().getStringExtra("fotoUsu");
-		fotoOutroUsu = getIntent().getStringExtra("fotoOutroUsu");			
-		
-		Toast.makeText(ChatActivity.this,fotoOutroUsu,Toast.LENGTH_LONG).show();
-		
-		
+		fotoOutroUsu = amigo.capa;			
+		id_usu = getIntent().getStringExtra("id_usu");
+		amizade = getIntent().getStringExtra("amizade");
+				
 		msgView = (ListView) findViewById(android.R.id.list);
 		btnEnviar = (Button) findViewById(R.id.btn_enviar);	
 		  
@@ -156,14 +156,15 @@ public class ChatActivity extends ListActivity {
 						List<NameValuePair> params = new ArrayList<NameValuePair>();
 						params.add(new BasicNameValuePair("consulta", tipoConsulta));
 						params.add(new BasicNameValuePair("login_remetente", usuarioLogado));
-						params.add(new BasicNameValuePair("login_destinatario", usuarioDestino));					
+						params.add(new BasicNameValuePair("login_destinatario", amigo.login));
+						params.add(new BasicNameValuePair("evento", "0"));
 
 						// PEGANDO AS INFORMAÇÕES DO WEB SERVICE
 						JSONObject json = jsonParserReceber.makeHttpRequest(
 								fachadaServidor.retornaFachada(), "GET", params);
 
 						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU						
-						//	Toast.makeText(ChatActivity.this,json.toString(),Toast.LENGTH_LONG).show();
+							Toast.makeText(ChatActivity.this,json.toString(),Toast.LENGTH_LONG).show();
 						
 						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
 						success = json.getInt(TAG_SUCCESS);
@@ -172,6 +173,7 @@ public class ChatActivity extends ListActivity {
 							for (int i = 0; i < jsonEntries.length(); i++) {							
 								JSONObject jsonEntry = jsonEntries.getJSONObject(i);
 								mensagemRecebida = jsonEntry.getString("mensagem");
+								fotoOutroUsu = jsonEntry.getString("foto_usuario");								
 								mensagens.add(new Chat(usuarioLogado, usuarioDestino,mensagemRecebida,fotoOutroUsu, false));
 															
 							}				
@@ -209,7 +211,9 @@ public class ChatActivity extends ListActivity {
 						List<NameValuePair> params = new ArrayList<NameValuePair>();
 						params.add(new BasicNameValuePair("consulta", tipoConsulta));
 						params.add(new BasicNameValuePair("login_remetente", usuarioLogado));
-						params.add(new BasicNameValuePair("login_destinatario", usuarioDestino));
+						params.add(new BasicNameValuePair("login_destinatario", amigo.login));
+						params.add(new BasicNameValuePair("foto_usuario", fotoUsu));
+						params.add(new BasicNameValuePair("evento", "0"));
 						params.add(new BasicNameValuePair("mensagem", mensagemEscrita));
 						
 
@@ -218,7 +222,7 @@ public class ChatActivity extends ListActivity {
 								fachadaServidor.retornaFachada(), "GET", params);
 
 						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU						
-						 //Toast.makeText(ChatActivity.this,json.toString(),Toast.LENGTH_LONG).show();
+						// Toast.makeText(ChatActivity.this,json.toString(),Toast.LENGTH_LONG).show();
 						
 						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
 						success = json.getInt(TAG_SUCCESS);
@@ -247,8 +251,21 @@ public class ChatActivity extends ListActivity {
 		it.putExtra("usuarioDestino", usuarioDestino);
 		it.putExtra("fotoOutroUsu", fotoOutroUsu);		
 		it.putExtra("amigo", amigo);		
-		startActivity(it);	
+		it.putExtra("id_usu", id_usu);
+		it.putExtra("amizade", amizade);
+		startActivityForResult(it, 0);	
 		return true;		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (resultCode == RESULT_OK && requestCode == 0){
+			Intent it = new Intent();		
+			setResult(RESULT_OK, it);
+			finish();
+		}
 	}
 
 }

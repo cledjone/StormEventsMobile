@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
 
-public class TodosEventosActivity extends ActionBarActivity implements ClicouNoItem{
+public class TodosEventosAmigosActivity extends ActionBarActivity implements ClicouNoItem{
 	
 	ListEventosFragment fragmentEventos;
 	ListAmigosFragment fragmentAmigos;	
@@ -40,7 +40,7 @@ public class TodosEventosActivity extends ActionBarActivity implements ClicouNoI
 				.commit();
 		} else {
 			this.setTitle("Adicionar Um Amigo");
-			fragmentAmigos = new ListAmigosFragment();			
+			fragmentAmigos = new ListAmigosFragment(id_usu, false);			
 			getSupportFragmentManager()
 				.beginTransaction()
 				.replace(android.R.id.content, fragmentAmigos)
@@ -57,32 +57,43 @@ public class TodosEventosActivity extends ActionBarActivity implements ClicouNoI
 		Intent it = new Intent(this, DetalheEventoActivity.class);
 		it.putExtra("usuarioLogado", usuarioLogado);
 		it.putExtra("evento", evento);
+		it.putExtra("sairParticipar", "Participar");
 		it.putExtra("id_usu", id_usu);
 		it.putExtra("fotoUsu", fotoUsu);
-		startActivity(it);		
-		
+		startActivityForResult(it, 0);		
 	}
 
 
 
 	@Override
 	public void amigoFoiClicado(Amigo amigo) {
-		Intent it = new Intent(this, ChatActivity.class);
+		Intent it = new Intent(this, DetalheAmigoActivity.class);
 		it.putExtra("usuarioLogado", usuarioLogado);
 		it.putExtra("amigo", amigo);
+		it.putExtra("amizade", "Adicionar Amigo");		
+		it.putExtra("id_usu", id_usu);
 		it.putExtra("fotoUsu", fotoUsu);	
-		startActivity(it);		
+		startActivityForResult(it, 0);		
 		
 	}
-
 
 
 	@Override
 	public void ParticipouEvento() {
-		// TODO Auto-generated method stub
-		
+		Intent it = new Intent();		
+		setResult(RESULT_OK, it);
+		finish();		
 	}
 		
-	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (resultCode == RESULT_OK && requestCode == 0){
+			Intent it = new Intent();		
+			setResult(RESULT_OK, it);
+			finish();
+		}
+	}
 	
 }
