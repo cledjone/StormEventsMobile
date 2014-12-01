@@ -50,13 +50,13 @@ public class AmigosAdapter extends ArrayAdapter<Amigo> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.titulo.setText(amigo.titulo);
-		holder.editora.setText(amigo.editora);
-		holder.autor.setText(amigo.autor);	
+		holder.titulo.setText(amigo.nome);
+		holder.editora.setText(amigo.login);
+		holder.autor.setText(amigo.rua);	
 
 		
 		Picasso.with(getContext())
-		.load(fotoUsuario.retornaFotoUsuario()+amigo.capa)
+		.load(fotoUsuario.retornaFotoUsuario()+amigo.foto)
 		.noFade()
 		.into(holder.capaLivro);
 

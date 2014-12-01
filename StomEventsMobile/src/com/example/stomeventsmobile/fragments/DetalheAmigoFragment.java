@@ -4,7 +4,6 @@ package com.example.stomeventsmobile.fragments;
 import com.example.stomeventsmobile.R;
 import com.example.stomeventsmobile.activitys.ChatActivity;
 import com.example.stomeventsmobile.basicas.Amigo;
-import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.utils.ClicouNoItem;
 import com.example.stomeventsmobile.utils.Config;
 import com.squareup.picasso.Picasso;
@@ -82,17 +81,17 @@ public class DetalheAmigoFragment extends Fragment {
 		btnAmizade.setText(amizadeAdd);
 		
 		amigo = (Amigo)getArguments().getSerializable("amigo");
-		txtTitulo.setText(amigo.titulo);
-		txtAutor.setText(amigo.autor);
-		txtEditora.setText(amigo.editora);
-		txtDescricao.setText(amigo.descricao);
+		txtTitulo.setText(amigo.nome);
+		txtAutor.setText(amigo.login);
+		txtEditora.setText(amigo.rua);
+		txtDescricao.setText(amigo.bairro);
 		
 		usuarioLogado = amigo.usuarioLogado;		
 		fotoUsu = amigo.fotoUsuarioLogado;
-		fotoOutroUsu = amigo.capa;
+		fotoOutroUsu = amigo.foto;
 		
 		Picasso.with(this.getActivity())
-		.load(fotoAmigo.retornaFotoUsuario()+amigo.capa)
+		.load(fotoAmigo.retornaFotoUsuario()+amigo.foto)
 		.noFade()
 		.into(imgCapa);
 		

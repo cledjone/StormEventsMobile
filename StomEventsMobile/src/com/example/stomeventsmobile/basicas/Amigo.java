@@ -6,40 +6,49 @@ public class Amigo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	public long id;
-	public String titulo;
-	public String autor;
-	public String capa;
-	public String editora;
-	public String descricao;
+	public String email;
+	public String telefone;
+	public String foto;
 	public String login;
+	public String nome;
+	public String rua;
+	public String bairro;
+	public String cidade;
+	public String numero;
 	public String usuarioLogado;
 	public String fotoUsuarioLogado;
 	public boolean favorito;
 	
 	
-	public Amigo(String titulo, String autor, String capa,  String editora, String descricao, String login) {
+	public Amigo(String email, String telefone,  String foto, String login, String nome, String rua , String bairro, String cidade, String numero) {
 		super();
-		this.titulo = titulo;
-		this.autor = autor;
-		this.capa = capa;
-		this.editora = editora;
-		this.descricao = descricao;
+		this.email = email;
+		this.telefone = telefone;
+		this.foto = foto;
 		this.login = login;
+		this.nome = nome;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.numero = numero;
 	}
 	
-	public Amigo(long id, String titulo, String autor, String capa,  String editora, String descricao, String login) {
+	public Amigo(long id, String email, String telefone,  String foto, String login, String nome, String rua , String bairro, String cidade, String numero) {
 		super();
 		this.id = id;
-		this.titulo = titulo;
-		this.autor = autor;
-		this.capa = capa;
-		this.editora = editora;
-		this.descricao = descricao;
+		this.email = email;
+		this.telefone = telefone;
+		this.foto = foto;
 		this.login = login;
+		this.nome = nome;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.numero = numero;
 	}
 	
 	@Override
 	public String toString() {
-		return titulo;
+		return email;
 	}
 }

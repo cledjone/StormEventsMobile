@@ -179,13 +179,17 @@ public class ListAmigosFragment extends ListFragment {
 				Amigo amigo = new Amigo(
 					Integer.parseInt(jsonEntry.getString("ID_USU")),
 					jsonEntry.getString("EMAIL_USU"),
-					jsonEntry.getString("EMAIL_USU"),
+					jsonEntry.getString("TEL_USU"),					
 					jsonEntry.getString("FOTO_USU"),
+					jsonEntry.getString("LOGIN_USU"),
 					jsonEntry.getString("NOME_USU"),
-					jsonEntry.getString("TEL_USU"),			
-					jsonEntry.getString("LOGIN_USU"));
+					jsonEntry.getString("END_RUA"),								
+					jsonEntry.getString("END_BAIRRO"),
+					jsonEntry.getString("END_CIDADE"),
+					jsonEntry.getString("END_NUMERO"));
 					amigos.add(amigo);
-				}				
+				}		
+				
 				return amigos;								
 			} catch (Exception e) {
 				e.printStackTrace();

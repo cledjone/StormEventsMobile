@@ -1,7 +1,6 @@
 package com.example.stomeventsmobile.fragments;
 
 import com.example.stomeventsmobile.R;
-import com.example.stomeventsmobile.activitys.ChatActivity;
 import com.example.stomeventsmobile.activitys.ChatEventoActivity;
 import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.utils.ClicouNoItem;

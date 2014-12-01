@@ -17,7 +17,7 @@ import com.example.stomeventsmobile.R;
 
 
 import com.example.stomeventsmobile.adapters.ChatAdapter;
-import com.example.stomeventsmobile.basicas.Amigo;
+import com.example.stomeventsmobile.basicas.Evento;
 import com.example.stomeventsmobile.basicas.Chat;
 import com.example.stomeventsmobile.utils.Config;
 import com.example.stomeventsmobile.utils.JSONParser;
@@ -31,19 +31,17 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 
-public class ChatActivity extends ListActivity {
+public class ChatEventoActivity extends ListActivity {
 	
-	Amigo amigo;
+	Evento evento;
 	List<Chat> mensagens;
 	ChatAdapter adapter;
 	Timer myTimer = new Timer();	
@@ -72,9 +70,8 @@ public class ChatActivity extends ListActivity {
 	String fotoUsu;
 	String fotoOutroUsu;
 	String mensagemEscrita;
-	String mensagemRecebida;	
-	String id_usu;
-	String amizade;
+	String mensagemRecebida;
+	
 			
 	 private void UpdateGUI() {
 	      i++;
@@ -96,20 +93,15 @@ public class ChatActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat);		
 		
-		amigo = (Amigo)getIntent().getSerializableExtra("amigo");		
+		evento = (Evento)getIntent().getSerializableExtra("evento");		
 		mensagens = new ArrayList<Chat>();
 				
 		adapter = new ChatAdapter(this, mensagens);
 		setListAdapter(adapter);
 	
 		textChat = (EditText) findViewById(R.id.txt_chat);
-		usuarioLogado = getIntent().getStringExtra("usuarioLogado");
-		Toast.makeText(ChatActivity.this,amigo.login,Toast.LENGTH_LONG).show();	
-		usuarioDestino = getIntent().getStringExtra("usuarioDestino");		
-		fotoUsu = getIntent().getStringExtra("fotoUsu");
-		fotoOutroUsu = amigo.foto;			
-		id_usu = getIntent().getStringExtra("id_usu");
-		amizade = getIntent().getStringExtra("amizade");
+		usuarioLogado = getIntent().getStringExtra("usuarioLogado");				
+		fotoUsu = getIntent().getStringExtra("fotoUsu");		
 				
 		msgView = (ListView) findViewById(android.R.id.list);
 		btnEnviar = (Button) findViewById(R.id.btn_enviar);	
@@ -159,16 +151,17 @@ public class ChatActivity extends ListActivity {
 						List<NameValuePair> params = new ArrayList<NameValuePair>();
 						params.add(new BasicNameValuePair("consulta", tipoConsulta));
 						params.add(new BasicNameValuePair("login_remetente", usuarioLogado));
-						params.add(new BasicNameValuePair("login_destinatario", amigo.login));
-						params.add(new BasicNameValuePair("evento", "0"));
+						params.add(new BasicNameValuePair("login_destinatario", ""));
+						params.add(new BasicNameValuePair("evento", evento.titulo));
+						
+						Log.d("paramentrosChatEvento: ", params.toString());
 
 						// PEGANDO AS INFORMAÇÕES DO WEB SERVICE
 						JSONObject json = jsonParserReceber.makeHttpRequest(
 								fachadaServidor.retornaFachada(), "GET", params);
 
-						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU
-						Log.d("paramentros3: ", params.toString());
-							//Toast.makeText(ChatActivity.this,json.toString(),Toast.LENGTH_LONG).show();
+						// TESTE PARA SABER O QUE O WEB SERVICE RESPONDEU						
+						//	Toast.makeText(ChatEventoActivity.this,json.toString(),Toast.LENGTH_LONG).show();
 						
 						//VERIFICA A TAG (TAG_SUCESSS) QUE RETORNA DO WEB SERVICE 						
 						success = json.getInt(TAG_SUCCESS);
@@ -215,11 +208,12 @@ public class ChatActivity extends ListActivity {
 						List<NameValuePair> params = new ArrayList<NameValuePair>();
 						params.add(new BasicNameValuePair("consulta", tipoConsulta));
 						params.add(new BasicNameValuePair("login_remetente", usuarioLogado));
-						params.add(new BasicNameValuePair("login_destinatario", amigo.login));
+						params.add(new BasicNameValuePair("login_destinatario", ""));
 						params.add(new BasicNameValuePair("foto_usuario", fotoUsu));
-						params.add(new BasicNameValuePair("evento", "0"));
+						params.add(new BasicNameValuePair("evento", evento.titulo));
 						params.add(new BasicNameValuePair("mensagem", mensagemEscrita));
 						
+						Log.d("paramentrosChatEvento: ", params.toString());
 
 						// PEGANDO AS INFORMAÇÕES DO WEB SERVICE
 						JSONObject json = jsonParserEnviar.makeHttpRequest(
@@ -247,19 +241,8 @@ public class ChatActivity extends ListActivity {
 		protected void onPostExecute(String file_url) {			
 			
 		}
-	}
+	}	
 	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {		
-		Intent it = new Intent(this, DetalheAmigoActivity.class);
-		it.putExtra("usuarioDestino", usuarioDestino);
-		it.putExtra("fotoOutroUsu", fotoOutroUsu);		
-		it.putExtra("amigo", amigo);		
-		it.putExtra("id_usu", id_usu);
-		it.putExtra("amizade", amizade);
-		startActivityForResult(it, 0);	
-		return true;		
-	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
